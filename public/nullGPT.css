@@ -55,13 +55,13 @@
   }
 }@font-face {
   font-family: 'Commodore64';
-  src: url('fonts/Commodore64.ttf') format('truetype');
+  src: url('../fonts/Commodore64.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 /* page-custom-fonts */
 @font-face {
-  font-family: 'Commodore64';
+  font-family: '../fonts/Commodore64';
   font-style: normal;
   font-weight: 400;
   src: url(fonts/Commodore64.TTF);
