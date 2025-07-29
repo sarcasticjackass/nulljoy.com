@@ -145,4 +145,10 @@
   .u-section-1 .u-repeater-1 {
     grid-auto-columns: 100%;
   }
+}@font-face {
+  font-family: 'Nowharehouse';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Nowharehouse.ttf);
 }
+/* page-custom-fonts */

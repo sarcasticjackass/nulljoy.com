@@ -834,6 +834,11 @@
   2% {
     transform: rotateX(0deg) skewX(0deg);
   }
+}@font-face {
+  font-family: 'Nowharehouse';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Nowharehouse.ttf);
 }
 /* page-custom-fonts */
 @font-face {

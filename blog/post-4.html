@@ -9,19 +9,18 @@
 <link rel="stylesheet" href="../Parallax-Digital-Clock.css" media="screen">
     <script class="u-script" type="text/javascript" src="../jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="../nicepage.js" defer=""></script>
-    <meta name="generator" content="Nicepage 7.11.4, nicepage.com">
     <link rel="icon" href="../images/favicon.png">
     
     
     
     
     
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    
+    <link id="u-theme-google-font" rel="stylesheet" href="../fonts.css">
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
-		"name": "nullJoy",
-		"logo": "images/nulljoy_personal_header_logo2.png"
+		"name": "nullJoy"
 }</script>
     <meta name="theme-color" content="#834496">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
@@ -71,10 +70,8 @@
           </div>
           <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
         </div>
-      </nav><a href="#" class="u-align-left u-image u-logo u-image-1" data-image-width="275" data-image-height="74">
-        <img src="../images/nulljoy_personal_header_logo2.png" class="u-logo-image u-logo-image-1">
-      </a><p class="u-align-left u-text u-text-color-var u-text-default u-text-1"> Fragments
-of function. Hints of feeling.</p></header>
+      </nav><p class="u-align-left u-text u-text-color-var u-text-default u-text-1"> Fragments
+of function. Hints of feeling.</p><p class="u-align-left u-custom-font u-text u-text-color-var u-text-default u-text-2">nu​lljoy</p></header>
     <section class="u-align-center u-clearfix u-container-align-center u-section-1" id="block-2">
       <div class="u-clearfix u-sheet u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1"><!--post_details--><!--post_details_options_json--><!--{"source":""}--><!--/post_details_options_json--><!--blog_post-->
         <div class="u-container-style u-expanded-width u-post-details u-post-details-1">
@@ -98,13 +95,53 @@ of function. Hints of feeling.</p></header>
     <footer class="u-align-center u-clearfix u-container-align-center u-footer u-palette-1-dark-3 u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-footer" id="footer"><div class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
         <div class="u-layout">
           <div class="u-layout-row">
-            <div class="u-container-style u-layout-cell u-palette-1-dark-3 u-size-13 u-layout-cell-1">
-              <div class="u-container-layout u-valign-top u-container-layout-1">
+            <div class="u-container-align-center u-container-style u-layout-cell u-palette-1-dark-3 u-size-13 u-layout-cell-1">
+              <div class="u-container-layout u-valign-middle-xl u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xs u-container-layout-1">
                 <img class="u-align-center u-image u-image-default u-preserve-proportions u-image-1" src="../images/404_footer2.png" alt="" data-image-width="300" data-image-height="150">
               </div>
             </div>
-            <div class="u-container-align-center u-container-style u-layout-cell u-palette-1-dark-3 u-size-34 u-layout-cell-2">
+            <div class="u-container-style u-layout-cell u-palette-1-dark-3 u-size-34 u-layout-cell-2">
               <div class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-container-layout-2">
+                <div class="custom-expanded u-clearfix u-custom-html u-custom-html-1">
+                  <div style="border:2px solid #003300; background:#001800; padding:1rem; color:#00ff90; font-family:'Courier New', monospace; box-shadow:0 0 10px #00ff90;">
+                    <div id="output" style="white-space:pre-wrap; min-height:400px; margin-bottom:1rem;"> &gt;&gt; nullGPT v1.0 initialized... welcome to the darkness.<br> &gt;&gt; Chat with Abysmia. She’s... adjusting. 
+                    </div>
+                    <div style="display:flex; gap:0.5rem; align-items:center;"><span>&gt;&gt;</span>
+                      <input type="text" id="userInput" placeholder="Type your unease here..." style="flex-grow:1; background:black; border:none; border-bottom:1px solid #00ff90; color:#00ff90; font-family:inherit; font-size:1rem;">
+                      <button style="background:#002200; color:#00ff90; border:1px solid #00ff90; padding:0.25rem 1rem; font-family:inherit; cursor:pointer;" onclick="sendMessage()">Confess</button>
+                    </div>
+                  </div>
+                  <script> const input = document.getElementById('userInput');
+  const output = document.getElementById('output');
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+  async function sendMessage() {
+    const message = input.value.trim();
+    if (!message) return;
+    appendOutput(`>> ${message}`);
+    input.value = '';
+    try {
+      const res = await fetch('/.netlify/functions/abysmia', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+      });
+      const data = await res.json();
+      if (data.reply) {
+        appendOutput(data.reply);
+      } else {
+        appendOutput(`[ERROR]: ${data.error || 'Abysmia refused to respond.'}`);
+      }
+    } catch (err) {
+      appendOutput('[CONNECTION FAILURE]: Abysmia ghosted you. Again.');
+    }
+  }
+  function appendOutput(text) {
+    output.innerHTML += `<br>${text}`;
+    output.scrollTop = output.scrollHeight;
+  } </script>
+                </div>
                 <h5 class="u-align-center u-headline u-text u-text-color-var u-text-1">
                   <a href="/" style="font-style: italic;">Everything here meant something once</a>
                 </h5>
@@ -157,8 +194,8 @@ of function. Hints of feeling.</p></header>
                 </nav>
               </div>
             </div>
-            <div class="u-container-style u-layout-cell u-palette-1-dark-3 u-size-13 u-layout-cell-3">
-              <div class="u-container-layout u-container-layout-3">
+            <div class="u-container-align-center u-container-style u-layout-cell u-palette-1-dark-3 u-size-13 u-layout-cell-3">
+              <div class="u-container-layout u-valign-middle-xl u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xs u-container-layout-3">
                 <img class="u-align-center u-image u-image-default u-preserve-proportions u-image-2" src="../images/404_footer2.png" alt="" data-image-width="300" data-image-height="150">
               </div>
             </div>

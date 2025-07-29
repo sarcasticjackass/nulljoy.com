@@ -61,4 +61,10 @@
   src: url('fonts/Commodore64.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}@font-face {
+  font-family: 'Nowharehouse';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Nowharehouse.ttf);
 }
+/* page-custom-fonts */

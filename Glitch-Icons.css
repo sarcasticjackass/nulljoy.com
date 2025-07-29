@@ -462,6 +462,11 @@
   .u-section-2 .u-gallery-1 {
     width: 340px;
   }
+}@font-face {
+  font-family: 'Nowharehouse';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Nowharehouse.ttf);
 }
 /* page-custom-fonts */
 @font-face {

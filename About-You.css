@@ -416,6 +416,11 @@
    .u-section-4 {
     min-height: 120px;
   }
+}@font-face {
+  font-family: 'Nowharehouse';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Nowharehouse.ttf);
 }
 /* page-custom-fonts */
 @font-face {
