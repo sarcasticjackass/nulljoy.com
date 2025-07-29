@@ -1,0 +1,64 @@
+ .u-section-1 {
+  padding-right: 50px;
+  padding-left: 50px;
+  min-height: 384px;
+}
+
+.u-section-1 .u-text-1 {
+  margin: 10px 0 0;
+}
+
+.u-section-1 .u-custom-html-1 {
+  margin: 20px auto 0;
+}
+
+.u-section-1 .u-custom-html-2 {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-custom-html-1 {
+    margin-right: initial;
+    margin-left: initial;
+  }
+}.u-section-2 .u-sheet-1 {
+  min-height: 16px;
+}
+
+.u-section-2 .u-text-1 {
+  font-family: "CommodoreAngledv1.2";
+  font-size: 0.625rem;
+  margin: 0 991px 0 0;
+}
+
+@media (max-width: 1199px) {
+  .u-section-2 .u-text-1 {
+    margin-right: 791px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-2 .u-text-1 {
+    margin-right: 571px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-2 .u-text-1 {
+    margin-top: 60px;
+    margin-right: 391px;
+    margin-bottom: 60px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-2 .u-text-1 {
+    margin-right: 191px;
+  }
+}@font-face {
+  font-family: 'Commodore64';
+  src: url('fonts/Commodore64.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
