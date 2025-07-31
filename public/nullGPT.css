@@ -32,12 +32,11 @@
 .u-section-1 .u-custom-html-2 {
   height: auto;
   min-height: 413px;
-  width: 684px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .u-section-1 .u-layout-cell-3 {
-  min-height: 655px;
+  min-height: 656px;
 }
 
 .u-section-1 .u-container-layout-3 {
@@ -47,8 +46,7 @@
 .u-section-1 .u-custom-html-3 {
   height: auto;
   min-height: 620px;
-  width: 80px;
-  margin: 0 127px -11px 0;
+  margin: 0 118px 0 0;
 }
 
 @media (max-width: 1199px) {
@@ -74,7 +72,7 @@
   }
 
   .u-section-1 .u-layout-cell-3 {
-    min-height: 540px;
+    min-height: 541px;
   }
 
   .u-section-1 .u-custom-html-3 {
@@ -149,7 +147,7 @@
   }
 
   .u-section-1 .u-custom-html-3 {
-    margin-right: 34px;
+    margin-right: 0;
   }
 }@font-face {
   font-family: 'Commodore64';
@@ -160,6 +158,6 @@
   font-family: 'Nowharehouse';
   font-style: normal;
   font-weight: 400;
-  src: url(fonts/Nowharehouse.ttf);
+  src: url(../fonts/Nowharehouse.ttf);
 }
 /* page-custom-fonts */
