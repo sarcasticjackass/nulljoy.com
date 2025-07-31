@@ -8,7 +8,7 @@
 }
 
 .u-section-1 .u-layout-cell-1 {
-  min-height: 655px;
+  min-height: 656px;
 }
 
 .u-section-1 .u-container-layout-1 {
@@ -51,20 +51,25 @@
 
 @media (max-width: 1199px) {
   .u-section-1 .u-sheet-1 {
-    min-height: 413px;
+    min-height: 439px;
   }
 
   .u-section-1 .u-layout-cell-1 {
-    min-height: 540px;
+    min-height: 439px;
+  }
+
+  .u-section-1 .u-container-layout-1 {
+    padding-top: 20px;
+    padding-bottom: 0;
   }
 
   .u-section-1 .u-custom-html-1 {
-    width: 100px;
-    margin-left: 101px;
+    min-height: 395px;
+    margin-left: 28px;
   }
 
   .u-section-1 .u-layout-cell-2 {
-    min-height: 511px;
+    min-height: 439px;
   }
 
   .u-section-1 .u-custom-html-2 {
@@ -72,12 +77,13 @@
   }
 
   .u-section-1 .u-layout-cell-3 {
-    min-height: 541px;
+    min-height: 439px;
   }
 
   .u-section-1 .u-custom-html-3 {
-    width: 100px;
-    margin-right: 91px;
+    min-height: 395px;
+    width: 130px;
+    margin-right: 58px;
   }
 }
 
@@ -87,10 +93,11 @@
   }
 
   .u-section-1 .u-layout-cell-1 {
-    min-height: 414px;
+    min-height: 336px;
   }
 
   .u-section-1 .u-custom-html-1 {
+    width: 100px;
     margin-left: 50px;
   }
 
@@ -103,17 +110,18 @@
   }
 
   .u-section-1 .u-layout-cell-3 {
-    min-height: 414px;
+    min-height: 336px;
   }
 
   .u-section-1 .u-custom-html-3 {
+    width: 100px;
     margin-right: 51px;
   }
 }
 
 @media (max-width: 767px) {
   .u-section-1 .u-layout-cell-1 {
-    min-height: 1553px;
+    min-height: 1260px;
   }
 
   .u-section-1 .u-container-layout-1 {
@@ -121,7 +129,7 @@
   }
 
   .u-section-1 .u-layout-cell-3 {
-    min-height: 1553px;
+    min-height: 1260px;
   }
 
   .u-section-1 .u-container-layout-3 {
@@ -131,7 +139,7 @@
 
 @media (max-width: 575px) {
   .u-section-1 .u-layout-cell-1 {
-    min-height: 978px;
+    min-height: 793px;
   }
 
   .u-section-1 .u-custom-html-1 {
@@ -143,7 +151,7 @@
   }
 
   .u-section-1 .u-layout-cell-3 {
-    min-height: 978px;
+    min-height: 793px;
   }
 
   .u-section-1 .u-custom-html-3 {

@@ -28,7 +28,7 @@
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
-  <body data-path-to-root="../" data-include-products="false" class="u-body u-clearfix u-palette-1-dark-3 u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-palette-1-dark-3 u-sticky u-valign-middle-sm u-header" id="header" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""><nav class="u-align-right u-dropdown-icon u-menu u-menu-dropdown u-offcanvas u-menu-1" role="navigation" data-position="Navigation">
+  <body data-path-to-root="../" data-include-products="false" class="u-body u-clearfix u-palette-1-dark-3 u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-palette-1-dark-3 u-sticky u-valign-middle-sm u-header" id="header" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""><p class="u-align-left u-custom-font u-text u-text-color-var u-text-default u-text-1">nu​lljoy</p><nav class="u-align-right u-dropdown-icon u-menu u-menu-dropdown u-offcanvas u-menu-1" role="navigation" data-position="Navigation">
         <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
           <a class="u-button-style u-custom-border-radius u-custom-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" tabindex="-1" aria-label="Open menu" aria-controls="eaf1">
             <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
@@ -74,165 +74,266 @@
           </div>
           <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
         </div>
-      </nav><p class="u-align-left u-custom-font u-text u-text-color-var u-text-default u-text-1">nu​lljoy</p><p class="u-align-left u-text u-text-color-var u-text-default u-text-2"> Fragments
+      </nav><p class="u-align-left u-text u-text-color-var u-text-default u-text-2"> Fragments
 of function. Hints of feeling.</p></header>
     <section class="u-clearfix u-palette-1-dark-3 u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-section-1" id="block-1">
       <div class="u-clearfix u-sheet u-sheet-1">
         <div class="data-layout-selected u-align-center u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
           <div class="u-layout">
             <div class="u-layout-row">
-              <div class="u-container-align-right u-container-style u-layout-cell u-size-12 u-layout-cell-1">
+              <div class="u-container-align-right-xl u-container-style u-layout-cell u-size-12 u-layout-cell-1">
                 <div class="u-container-layout u-valign-top u-container-layout-1">
                   <div class="custom-expanded u-align-right u-clearfix u-custom-html u-custom-html-1">
-                    <style> /* --- Enhanced Rainfall Bar Effects --- */
-#rainfall-bar-enhanced {
+                    <style> /* --- Fluid Shader Panels --- */
+.fluid-panel {
   width: 80px;
   height: 395px;
   position: relative;
-  background: #18151b;
+  background: #0a0a0a;
   border-radius: 12px;
   overflow: hidden;
-  /* Subtle bar glitch animation */
-  animation: bar-glitch 3s infinite;
+  border: 1px solid rgba(0, 255, 100, 0.3);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 100, 0.2),
+    inset 0 0 20px rgba(0, 255, 100, 0.1);
 }
-/* Animated noise overlay */
-#rainfall-bar-enhanced::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: url('https://www.transparenttextures.com/patterns/noise.png');
-  opacity: 0.08;
-  z-index: 2;
-  animation: noise-move 1s steps(2) infinite;
+.fluid-panel canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 11px;
 }
-@keyframes noise-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 100px 100px; }
+/* Panel glow effect */
+.fluid-panel {
+  animation: fluid-glow 8s ease-in-out infinite;
 }
-/* TV scanlines overlay */
-#rainfall-bar-enhanced::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.08) 0px,   /* Increased opacity */
-    rgba(255,255,255,0.08) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  z-index: 4; /* Make sure it's above the noise */
-}
-@keyframes bar-glitch {
-  0%, 100% { filter: none; }
-  10% { filter: hue-rotate(5deg) blur(0.5px); }
-  20% { filter: contrast(1.1); }
-  30% { filter: hue-rotate(-5deg) blur(1px); }
-  40% { filter: none; }
-}
-/* Enhanced drop styles */
-.rain-drop {
-  box-shadow: 0 0 16px 4px currentColor;
-  animation: drop-glow 1.2s infinite alternate, drop-glitch 0.4s infinite steps(2, end);
-  color: inherit;
-}
-@keyframes drop-glow {
-  0% { box-shadow: 0 0 8px 2px currentColor; }
-  100% { box-shadow: 0 0 24px 8px currentColor; }
-}
-@keyframes drop-glitch {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-1px); }
-  40% { transform: translateX(1px); }
-  60% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
-} </style><!-- Enhanced Rainfall/Dripping Effect Bar with Mood Simulation -->
-                    <div id="rainfall-bar-enhanced"><!-- Drops will be generated by JS --></div>
+@keyframes fluid-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 100, 0.2),
+      inset 0 0 20px rgba(0, 255, 100, 0.1);
+  }
+  33% {
+    box-shadow: 
+      0 0 30px rgba(50, 255, 150, 0.3),
+      inset 0 0 30px rgba(50, 255, 150, 0.15);
+  }
+  66% {
+    box-shadow: 
+      0 0 25px rgba(0, 200, 100, 0.25),
+      inset 0 0 25px rgba(0, 200, 100, 0.125);
+  }
+} </style><!-- Left Fluid Panel -->
+                    <div class="fluid-panel" id="fluid-panel-left"></div>
                     <script> (function() {
-  // === CONFIGURABLE BAR DIMENSIONS ===
-  const BAR_HEIGHT = 395;
-  const BAR_WIDTH = 80;
-  // === MOOD DEFINITIONS ===
-  const MOODS = [
-    { name: "calm", color: "#6FA8DC", speed: 1.8, interval: 500, opacity: 0.5 },
-    { name: "anxious", color: "#D7268A", speed: 3.2, interval: 180, opacity: 0.8 },
-    { name: "melancholy", color: "#25BFB5", speed: 2.1, interval: 350, opacity: 0.6 },
-    { name: "hopeful", color: "#F2B880", speed: 2.5, interval: 250, opacity: 0.7 },
-    { name: "neutral", color: "#00C28A", speed: 2.2, interval: 350, opacity: 0.7 }
-  ];
-  // === DROP APPEARANCE ===
-  const DROP_WIDTH = 8;
-  const DROP_HEIGHT = 24;
-  const DROP_RADIUS = "4px";
-  const MAX_DROPS = 22;
-  // === MOOD CYCLE SETTINGS ===
-  const MOOD_CHANGE_INTERVAL = 5000; // ms
-  // === INTERNAL STATE ===
-  let currentMood = MOODS[0];
-  let drops = [];
-  let dropIntervalId = null;
-  let moodIntervalId = null;
-  // === BAR SETUP ===
-  const bar = document.getElementById("rainfall-bar-enhanced");
-  bar.style.width = BAR_WIDTH + "px";
-  bar.style.height = BAR_HEIGHT + "px";
-  // === DROP CREATION ===
-  function createDrop() {
-    if (drops.length >= MAX_DROPS) return;
-    const drop = document.createElement("div");
-    drop.className = "rain-drop";
-    drop.style.position = "absolute";
-    drop.style.left = Math.floor(Math.random() * (BAR_WIDTH - DROP_WIDTH)) + "px";
-    drop.style.top = "-" + DROP_HEIGHT + "px";
-    drop.style.width = DROP_WIDTH + "px";
-    drop.style.height = DROP_HEIGHT + "px";
-    drop.style.background = currentMood.color;
-    drop.style.opacity = currentMood.opacity;
-    drop.style.borderRadius = DROP_RADIUS;
-    drop.style.transition = "opacity 0.2s";
-    drop.style.color = currentMood.color; // for currentColor in box-shadow
-    bar.appendChild(drop);
-    drops.push({ el: drop, y: -DROP_HEIGHT });
+  // High contrast green fluid shader with dramatic gradients
+  const fragmentShaderSource = `#version 300 es
+  precision highp float;
+  uniform float time;
+  uniform vec2 vp;
+  in vec2 uv;
+  out vec4 fragColor;
+  
+  float rand(vec2 p) {
+      return fract(sin(dot(p.xy, vec2(1., 300.))) * 43758.5453123);
   }
-  // === DROP ANIMATION ===
-  function animateDrops() {
-    for (let i = drops.length - 1; i >= 0; i--) {
-      drops[i].y += currentMood.speed;
-      drops[i].el.style.top = drops[i].y + "px";
-      if (drops[i].y > BAR_HEIGHT - DROP_HEIGHT * 1.5) {
-        drops[i].el.style.opacity = 0.2;
+  
+  // Based on Morgan McGuire
+  float noise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      // Four corners in 2D of a tile
+      float a = rand(i);
+      float b = rand(i + vec2(1.0, 0.0));
+      float c = rand(i + vec2(0.0, 1.0));
+      float d = rand(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(a, b, u.x) +
+              (c - a)* u.y * (1.0 - u.x) +
+              (d - b) * u.x * u.y;
+  }
+  
+  #define OCTAVES 5
+  float fbm(vec2 p) {
+      // Initial values
+      float value = 0.;
+      float amplitude = .5;
+      float frequency = 0.;
+      // Loop of octaves
+      for (int i = 0; i < OCTAVES; i++) {
+          value += amplitude * noise(p);
+          p *= 2.;
+          amplitude *= .5;
       }
-      if (drops[i].y > BAR_HEIGHT) {
-        bar.removeChild(drops[i].el);
-        drops.splice(i, 1);
+      return value;
+  }
+  
+  void main() {
+      vec2 p = uv.xy;
+      p.x *= vp.x / vp.y; 
+      
+      // Create dramatic vertical gradient (dark at bottom, bright at top)
+      float verticalGradient = smoothstep(-1.0, 1.0, p.y);
+      float baseGradient = mix(0.05, 0.95, pow(verticalGradient, 1.5));
+      
+      float speed = 0.25;
+      float details = 10.;
+      float force = 1.2;
+      float shift = 0.3;
+     
+      vec2 fast = vec2(p.x, p.y - time*speed) * details;
+      float ns_a = fbm(fast);
+      float ns_b = force * fbm(fast + ns_a + time) - shift;    
+      float nns = force * fbm(vec2(ns_a, ns_b));
+      float ins = fbm(vec2(ns_b, ns_a));
+      
+      // Enhanced contrast with darker base colors
+      vec3 darkColor = vec3(0.0, 0.1, 0.02);      // Very dark green (bottom)
+      vec3 midColor = vec3(0.0, 0.4, 0.1);        // Medium green 
+      vec3 brightColor = vec3(0.2, 1.0, 0.4);     // Bright green (highlights)
+      vec3 hotColor = vec3(0.8, 1.0, 0.8);        // Almost white hot spots
+      
+      // Create more dramatic noise-based coloring
+      float intensity = smoothstep(-0.2, 1.2, ins + baseGradient);
+      float highlights = smoothstep(0.7, 1.0, ins + baseGradient * 0.5);
+      
+      // Mix colors based on intensity and position
+      vec3 baseColor = mix(darkColor, midColor, intensity);
+      vec3 finalColor = mix(baseColor, brightColor, intensity * verticalGradient);
+      finalColor = mix(finalColor, hotColor, highlights * 0.8);
+      
+      // Add extra contrast boost
+      finalColor = pow(finalColor, vec3(0.8)); // Gamma correction for more pop
+      
+      fragColor = vec4(finalColor, 1.0);
+  }`;
+  class WebGLHandler {
+      vertexShaderSource = `#version 300 es
+          precision mediump float;
+          const vec2 positions[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(-1.0, 1.0), vec2(-1.0, 1.0), vec2(1.0, -1.0), vec2(1.0, 1.0));
+          out vec2 uv;
+          void main() {
+              uv = positions[gl_VertexID];
+              gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
+          }`;
+      
+      constructor(canvas, fragmentShaderSource, timeOffset = 0) {
+          this.cn = canvas;
+          this.gl = canvas.getContext('webgl2');
+          
+          if (!this.gl) {
+              console.error('WebGL2 not supported');
+              return;
+          }
+          
+          this.startTime = Date.now() + timeOffset;
+          this.program = this.gl.createProgram();
+          
+          if (!this.compileShader(this.vertexShaderSource, this.gl.VERTEX_SHADER) ||
+              !this.compileShader(fragmentShaderSource, this.gl.FRAGMENT_SHADER)) {
+              return;
+          }
+          
+          this.gl.linkProgram(this.program);
+          
+          if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
+              console.error('Program linking failed:', this.gl.getProgramInfoLog(this.program));
+              return;
+          }
+          
+          this.gl.useProgram(this.program);
+          this.timeLocation = this.gl.getUniformLocation(this.program, 'time');
+          this.resolutionLocation = this.gl.getUniformLocation(this.program, 'vp');
+          
+          this.resize();
+          this.render();
       }
-    }
-    requestAnimationFrame(animateDrops);
+      
+      resize() {
+          this.cn.width = 80;
+          this.cn.height = 395;
+          this.gl.viewport(0, 0, this.cn.width, this.cn.height);
+      }
+      
+      compileShader(source, type) {
+          const shader = this.gl.createShader(type);
+          this.gl.shaderSource(shader, source);
+          this.gl.compileShader(shader);
+          
+          if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+              console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
+              this.gl.deleteShader(shader);
+              return false;
+          }
+          
+          this.gl.attachShader(this.program, shader);
+          return true;
+      }
+      
+      render = () => {    
+          if (!this.gl || !this.program) return;
+          
+          this.gl.uniform1f(this.timeLocation, (Date.now() - this.startTime) / 1000);
+          this.gl.uniform2fv(this.resolutionLocation, [this.cn.width, this.cn.height]);
+          this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+          
+          this.animationFrame = requestAnimationFrame(this.render);
+      }
+      
+      destroy() {
+          if (this.animationFrame) {
+              cancelAnimationFrame(this.animationFrame);
+          }
+          if (this.gl && this.program) {
+              this.gl.deleteProgram(this.program);
+          }
+      }
   }
-  // === MOOD MANAGEMENT ===
-  function setMood(mood) {
-    currentMood = mood;
-    if (dropIntervalId) clearInterval(dropIntervalId);
-    dropIntervalId = setInterval(createDrop, currentMood.interval);
+  // Create panels with error checking
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  
+  console.log('Left panel found:', leftPanel);
+  console.log('Right panel found:', rightPanel);
+  
+  if (!leftPanel || !rightPanel) {
+      console.error('Panel elements not found! Make sure you have both divs with correct IDs.');
+      return;
   }
-  function cycleMood() {
-    let idx = 0;
-    setMood(MOODS[idx]);
-    moodIntervalId = setInterval(() => {
-      idx = (idx + 1) % MOODS.length;
-      setMood(MOODS[idx]);
-    }, MOOD_CHANGE_INTERVAL);
+  
+  const leftCanvas = document.createElement('canvas');
+  const rightCanvas = document.createElement('canvas');
+  
+  leftPanel.appendChild(leftCanvas);
+  rightPanel.appendChild(rightCanvas);
+  
+  // Initialize WebGL handlers with slight time offset for variation
+  let leftHandler, rightHandler;
+  
+  try {
+      console.log('Initializing left panel...');
+      leftHandler = new WebGLHandler(leftCanvas, fragmentShaderSource, 0);
+      console.log('Left panel initialized successfully');
+      
+      console.log('Initializing right panel...');
+      rightHandler = new WebGLHandler(rightCanvas, fragmentShaderSource, 2000); // 2 second offset
+      console.log('Right panel initialized successfully');
+  } catch (error) {
+      console.error('Failed to initialize WebGL:', error);
+      
+      // More specific fallback handling
+      if (!leftHandler && leftPanel) {
+          leftPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Left WebGL failed</div>';
+      }
+      if (!rightHandler && rightPanel) {
+          rightPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Right WebGL failed</div>';
+      }
   }
-  // === INIT ===
-  setMood(MOODS[0]);
-  cycleMood();
-  animateDrops();
-  // === CLEANUP ON PAGE UNLOAD ===
-  window.addEventListener("beforeunload", function() {
-    if (dropIntervalId) clearInterval(dropIntervalId);
-    if (moodIntervalId) clearInterval(moodIntervalId);
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', function() {
+      if (leftHandler) leftHandler.destroy();
+      if (rightHandler) rightHandler.destroy();
   });
 })(); </script>
                   </div>
@@ -246,7 +347,7 @@ of function. Hints of feeling.</p></header>
                       </div>
                       <div style="display:flex; gap:0.5rem; align-items:center;"><span>&gt;&gt;</span>
                         <input type="text" id="userInput" placeholder="Type your unease here..." style="flex-grow:1; background:black; border:none; border-bottom:1px solid #00ff90; color:#00ff90; font-family:inherit; font-size:1rem;">
-                        <button style="background:#002200; color:#00ff90; border:1px solid #00ff90; padding:0.25rem 1rem; font-family:inherit; cursor:pointer;" onclick="sendMessage()">Confess</button>
+                        <button style="background:#002200; color:#00ff90; border:1px solid #00ff90; padding:0.25rem 1rem; font-family:inherit; cursor:pointer;" onclick="sendMessage()">Chat</button>
                       </div>
                     </div>
                     <script> const input = document.getElementById('userInput');
@@ -282,158 +383,259 @@ of function. Hints of feeling.</p></header>
                   </div>
                 </div>
               </div>
-              <div class="u-container-align-left u-container-style u-layout-cell u-size-12 u-layout-cell-3">
-                <div class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-xl u-container-layout-3">
+              <div class="u-container-align-left-xl u-container-style u-layout-cell u-size-12 u-layout-cell-3">
+                <div class="u-container-layout u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-lg u-valign-top-xl u-container-layout-3">
                   <div class="custom-expanded u-align-left u-clearfix u-custom-html u-custom-html-3">
-                    <style> /* --- Enhanced Rainfall Bar Effects --- */
-#rainfall-bar-enhanced2 {
-  width: 80px;
+                    <style> /* --- Fluid Shader Panels --- */
+.fluid-panel {
+  width: 130px;
   height: 395px;
   position: relative;
-  background: #18151b;
+  background: #0a0a0a;
   border-radius: 12px;
   overflow: hidden;
-  /* Subtle bar glitch animation */
-  animation: bar-glitch 3s infinite;
+  border: 1px solid rgba(0, 255, 100, 0.3);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 100, 0.2),
+    inset 0 0 20px rgba(0, 255, 100, 0.1);
 }
-/* Animated noise overlay */
-#rainfall-bar-enhanced2::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: url('https://www.transparenttextures.com/patterns/noise.png');
-  opacity: 0.6;
-  z-index: 2;
-  animation: noise-move 1s steps(2) infinite;
+.fluid-panel canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 11px;
 }
-@keyframes noise-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 100px 100px; }
+/* Panel glow effect */
+.fluid-panel {
+  animation: fluid-glow 8s ease-in-out infinite;
 }
-/* TV scanlines overlay */
-#rainfall-bar-enhanced2::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.08) 0px,   /* Increased opacity */
-    rgba(255,255,255,0.08) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  z-index: 4; /* Make sure it's above the noise */
-}
-@keyframes bar-glitch {
-  0%, 100% { filter: none; }
-  10% { filter: hue-rotate(5deg) blur(0.5px); }
-  20% { filter: contrast(1.1); }
-  30% { filter: hue-rotate(-5deg) blur(1px); }
-  40% { filter: none; }
-}
-/* Enhanced drop styles */
-.rain-drop {
-  box-shadow: 0 0 16px 4px currentColor;
-  animation: drop-glow 1.2s infinite alternate, drop-glitch 0.4s infinite steps(2, end);
-  color: inherit;
-}
-@keyframes drop-glow {
-  0% { box-shadow: 0 0 8px 2px currentColor; }
-  100% { box-shadow: 0 0 24px 8px currentColor; }
-}
-@keyframes drop-glitch {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-1px); }
-  40% { transform: translateX(1px); }
-  60% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
-} </style><!-- Enhanced Rainfall/Dripping Effect Bar with Mood Simulation -->
-                    <div id="rainfall-bar-enhanced2"><!-- Drops will be generated by JS --></div>
+@keyframes fluid-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 100, 0.2),
+      inset 0 0 20px rgba(0, 255, 100, 0.1);
+  }
+  33% {
+    box-shadow: 
+      0 0 30px rgba(50, 255, 150, 0.3),
+      inset 0 0 30px rgba(50, 255, 150, 0.15);
+  }
+  66% {
+    box-shadow: 
+      0 0 25px rgba(0, 200, 100, 0.25),
+      inset 0 0 25px rgba(0, 200, 100, 0.125);
+  }
+} </style><!-- Right Fluid Panel -->
+                    <div class="fluid-panel" id="fluid-panel-right"></div>
                     <script> (function() {
-  // === CONFIGURABLE BAR DIMENSIONS ===
-  const BAR_HEIGHT = 395;
-  const BAR_WIDTH = 80;
-  // === MOOD DEFINITIONS ===
-  const MOODS = [
-    { name: "calm", color: "#6FA8DC", speed: 1.8, interval: 500, opacity: 0.5 },
-    { name: "anxious", color: "#D7268A", speed: 3.2, interval: 180, opacity: 0.8 },
-    { name: "melancholy", color: "#25BFB5", speed: 2.1, interval: 350, opacity: 0.6 },
-    { name: "hopeful", color: "#F2B880", speed: 2.5, interval: 250, opacity: 0.7 },
-    { name: "neutral", color: "#00C28A", speed: 2.2, interval: 350, opacity: 0.7 }
-  ];
-  // === DROP APPEARANCE ===
-  const DROP_WIDTH = 8;
-  const DROP_HEIGHT = 24;
-  const DROP_RADIUS = "4px";
-  const MAX_DROPS = 22;
-  // === MOOD CYCLE SETTINGS ===
-  const MOOD_CHANGE_INTERVAL = 5000; // ms
-  // === INTERNAL STATE ===
-  let currentMood = MOODS[0];
-  let drops = [];
-  let dropIntervalId = null;
-  let moodIntervalId = null;
-  // === BAR SETUP ===
-  const bar = document.getElementById("rainfall-bar-enhanced2");
-  bar.style.width = BAR_WIDTH + "px";
-  bar.style.height = BAR_HEIGHT + "px";
-  // === DROP CREATION ===
-  function createDrop() {
-    if (drops.length >= MAX_DROPS) return;
-    const drop = document.createElement("div");
-    drop.className = "rain-drop";
-    drop.style.position = "absolute";
-    drop.style.left = Math.floor(Math.random() * (BAR_WIDTH - DROP_WIDTH)) + "px";
-    drop.style.top = "-" + DROP_HEIGHT + "px";
-    drop.style.width = DROP_WIDTH + "px";
-    drop.style.height = DROP_HEIGHT + "px";
-    drop.style.background = currentMood.color;
-    drop.style.opacity = currentMood.opacity;
-    drop.style.borderRadius = DROP_RADIUS;
-    drop.style.transition = "opacity 0.2s";
-    drop.style.color = currentMood.color; // for currentColor in box-shadow
-    bar.appendChild(drop);
-    drops.push({ el: drop, y: -DROP_HEIGHT });
+  // High contrast green fluid shader with dramatic gradients
+  const fragmentShaderSource = `#version 300 es
+  precision highp float;
+  uniform float time;
+  uniform vec2 vp;
+  in vec2 uv;
+  out vec4 fragColor;
+  
+  float rand(vec2 p) {
+      return fract(sin(dot(p.xy, vec2(1., 300.))) * 43758.5453123);
   }
-  // === DROP ANIMATION ===
-  function animateDrops() {
-    for (let i = drops.length - 1; i >= 0; i--) {
-      drops[i].y += currentMood.speed;
-      drops[i].el.style.top = drops[i].y + "px";
-      if (drops[i].y > BAR_HEIGHT - DROP_HEIGHT * 1.5) {
-        drops[i].el.style.opacity = 0.2;
+  
+  // Based on Morgan McGuire
+  float noise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      // Four corners in 2D of a tile
+      float a = rand(i);
+      float b = rand(i + vec2(1.0, 0.0));
+      float c = rand(i + vec2(0.0, 1.0));
+      float d = rand(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(a, b, u.x) +
+              (c - a)* u.y * (1.0 - u.x) +
+              (d - b) * u.x * u.y;
+  }
+  
+  #define OCTAVES 5
+  float fbm(vec2 p) {
+      // Initial values
+      float value = 0.;
+      float amplitude = .5;
+      float frequency = 0.;
+      // Loop of octaves
+      for (int i = 0; i < OCTAVES; i++) {
+          value += amplitude * noise(p);
+          p *= 2.;
+          amplitude *= .5;
       }
-      if (drops[i].y > BAR_HEIGHT) {
-        bar.removeChild(drops[i].el);
-        drops.splice(i, 1);
+      return value;
+  }
+  
+  void main() {
+      vec2 p = uv.xy;
+      p.x *= vp.x / vp.y; 
+      
+      // Create dramatic vertical gradient (dark at bottom, bright at top)
+      float verticalGradient = smoothstep(-1.0, 1.0, p.y);
+      float baseGradient = mix(0.05, 0.95, pow(verticalGradient, 1.5));
+      
+      float speed = 0.25;
+      float details = 10.;
+      float force = 1.2;
+      float shift = 0.3;
+     
+      vec2 fast = vec2(p.x, p.y - time*speed) * details;
+      float ns_a = fbm(fast);
+      float ns_b = force * fbm(fast + ns_a + time) - shift;    
+      float nns = force * fbm(vec2(ns_a, ns_b));
+      float ins = fbm(vec2(ns_b, ns_a));
+      
+      // Enhanced contrast with darker base colors
+      vec3 darkColor = vec3(0.0, 0.1, 0.02);      // Very dark green (bottom)
+      vec3 midColor = vec3(0.0, 0.4, 0.1);        // Medium green 
+      vec3 brightColor = vec3(0.2, 1.0, 0.4);     // Bright green (highlights)
+      vec3 hotColor = vec3(0.8, 1.0, 0.8);        // Almost white hot spots
+      
+      // Create more dramatic noise-based coloring
+      float intensity = smoothstep(-0.2, 1.2, ins + baseGradient);
+      float highlights = smoothstep(0.7, 1.0, ins + baseGradient * 0.5);
+      
+      // Mix colors based on intensity and position
+      vec3 baseColor = mix(darkColor, midColor, intensity);
+      vec3 finalColor = mix(baseColor, brightColor, intensity * verticalGradient);
+      finalColor = mix(finalColor, hotColor, highlights * 0.8);
+      
+      // Add extra contrast boost
+      finalColor = pow(finalColor, vec3(0.8)); // Gamma correction for more pop
+      
+      fragColor = vec4(finalColor, 1.0);
+  }`;
+  class WebGLHandler {
+      vertexShaderSource = `#version 300 es
+          precision mediump float;
+          const vec2 positions[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(-1.0, 1.0), vec2(-1.0, 1.0), vec2(1.0, -1.0), vec2(1.0, 1.0));
+          out vec2 uv;
+          void main() {
+              uv = positions[gl_VertexID];
+              gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
+          }`;
+      
+      constructor(canvas, fragmentShaderSource, timeOffset = 0) {
+          this.cn = canvas;
+          this.gl = canvas.getContext('webgl2');
+          
+          if (!this.gl) {
+              console.error('WebGL2 not supported');
+              return;
+          }
+          
+          this.startTime = Date.now() + timeOffset;
+          this.program = this.gl.createProgram();
+          
+          if (!this.compileShader(this.vertexShaderSource, this.gl.VERTEX_SHADER) ||
+              !this.compileShader(fragmentShaderSource, this.gl.FRAGMENT_SHADER)) {
+              return;
+          }
+          
+          this.gl.linkProgram(this.program);
+          
+          if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
+              console.error('Program linking failed:', this.gl.getProgramInfoLog(this.program));
+              return;
+          }
+          
+          this.gl.useProgram(this.program);
+          this.timeLocation = this.gl.getUniformLocation(this.program, 'time');
+          this.resolutionLocation = this.gl.getUniformLocation(this.program, 'vp');
+          
+          this.resize();
+          this.render();
       }
-    }
-    requestAnimationFrame(animateDrops);
+      
+      resize() {
+          this.cn.width = 80;
+          this.cn.height = 395;
+          this.gl.viewport(0, 0, this.cn.width, this.cn.height);
+      }
+      
+      compileShader(source, type) {
+          const shader = this.gl.createShader(type);
+          this.gl.shaderSource(shader, source);
+          this.gl.compileShader(shader);
+          
+          if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+              console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
+              this.gl.deleteShader(shader);
+              return false;
+          }
+          
+          this.gl.attachShader(this.program, shader);
+          return true;
+      }
+      
+      render = () => {    
+          if (!this.gl || !this.program) return;
+          
+          this.gl.uniform1f(this.timeLocation, (Date.now() - this.startTime) / 1000);
+          this.gl.uniform2fv(this.resolutionLocation, [this.cn.width, this.cn.height]);
+          this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+          
+          this.animationFrame = requestAnimationFrame(this.render);
+      }
+      
+      destroy() {
+          if (this.animationFrame) {
+              cancelAnimationFrame(this.animationFrame);
+          }
+          if (this.gl && this.program) {
+              this.gl.deleteProgram(this.program);
+          }
+      }
   }
-  // === MOOD MANAGEMENT ===
-  function setMood(mood) {
-    currentMood = mood;
-    if (dropIntervalId) clearInterval(dropIntervalId);
-    dropIntervalId = setInterval(createDrop, currentMood.interval);
+  // Create panels with error checking
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  
+  console.log('Left panel found:', leftPanel);
+  console.log('Right panel found:', rightPanel);
+  
+  if (!leftPanel || !rightPanel) {
+      console.error('Panel elements not found! Make sure you have both divs with correct IDs.');
+      return;
   }
-  function cycleMood() {
-    let idx = 0;
-    setMood(MOODS[idx]);
-    moodIntervalId = setInterval(() => {
-      idx = (idx + 1) % MOODS.length;
-      setMood(MOODS[idx]);
-    }, MOOD_CHANGE_INTERVAL);
+  
+  const leftCanvas = document.createElement('canvas');
+  const rightCanvas = document.createElement('canvas');
+  
+  leftPanel.appendChild(leftCanvas);
+  rightPanel.appendChild(rightCanvas);
+  
+  // Initialize WebGL handlers with slight time offset for variation
+  let leftHandler, rightHandler;
+  
+  try {
+      console.log('Initializing left panel...');
+      leftHandler = new WebGLHandler(leftCanvas, fragmentShaderSource, 0);
+      console.log('Left panel initialized successfully');
+      
+      console.log('Initializing right panel...');
+      rightHandler = new WebGLHandler(rightCanvas, fragmentShaderSource, 2000); // 2 second offset
+      console.log('Right panel initialized successfully');
+  } catch (error) {
+      console.error('Failed to initialize WebGL:', error);
+      
+      // More specific fallback handling
+      if (!leftHandler && leftPanel) {
+          leftPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Left WebGL failed</div>';
+      }
+      if (!rightHandler && rightPanel) {
+          rightPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Right WebGL failed</div>';
+      }
   }
-  // === INIT ===
-  setMood(MOODS[0]);
-  cycleMood();
-  animateDrops();
-  // === CLEANUP ON PAGE UNLOAD ===
-  window.addEventListener("beforeunload", function() {
-    if (dropIntervalId) clearInterval(dropIntervalId);
-    if (moodIntervalId) clearInterval(moodIntervalId);
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', function() {
+      if (leftHandler) leftHandler.destroy();
+      if (rightHandler) rightHandler.destroy();
   });
 })(); </script>
                   </div>
