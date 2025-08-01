@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>vault_bak</title>
+    <title>Philosophy of Controlled Chaos</title>
     <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="vault_bak.css" media="screen">
+<link rel="stylesheet" href="Philosophy-of-Controlled-Chaos.css" media="screen">
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
-    
     <link rel="icon" href="images/favicon.png">
+    
+    
     
     
     
@@ -25,7 +26,7 @@
 		"name": "nullJoy"
 }</script>
     <meta name="theme-color" content="#834496">
-    <meta property="og:title" content="vault_bak">
+    <meta property="og:title" content="Philosophy of Controlled Chaos">
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
@@ -79,299 +80,148 @@
         </div>
       </nav><p class="u-align-left u-text u-text-color-var u-text-default u-text-2"> Fragments
 of function. Hints of feeling.</p></header> 
-    <section class="u-clearfix u-palette-1-dark-3 u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xs u-section-1" id="sec-5b2f">
-      <p class="u-align-right u-text u-text-1"></p>
-      <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1"><!-- FONT + STYLING -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100" rel="stylesheet">
-        <style> .glitch-container {
-    width: 80%;
-    padding: 5px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #111;
-  }
-  .glitch-text {
-    font-family: 'Roboto Mono', monospace;
-    font-weight: 100;
-    font-size: 28px;
-    color: #39FF14;
-  }
-  .dud {
-    color: #757575;
-  } </style><!-- HTML STRUCTURE -->
-        <div class="glitch-container">
-          <div class="glitch-text"></div>
-        </div><!-- SCRIPT -->
-        <script> class TextScramble {
-    constructor(el) {
-      this.el = el;
-      this.chars = '!<>-_\\/[]{}—=+*^?#________';
-      this.update = this.update.bind(this);
-    }
-    setText(newText) {
-      const oldText = this.el.innerText;
-      const length = Math.max(oldText.length, newText.length);
-      const promise = new Promise((resolve) => this.resolve = resolve);
-      this.queue = [];
-      for (let i = 0; i < length; i++) {
-        const from = oldText[i] || '';
-        const to = newText[i] || '';
-        const start = Math.floor(Math.random() * 40);
-        const end = start + Math.floor(Math.random() * 40);
-        this.queue.push({ from, to, start, end });
-      }
-      cancelAnimationFrame(this.frameRequest);
-      this.frame = 0;
-      this.update();
-      return promise;
-    }
-    update() {
-      let output = '';
-      let complete = 0;
-      for (let i = 0, n = this.queue.length; i < n; i++) {
-        let { from, to, start, end, char } = this.queue[i];
-        if (this.frame >= end) {
-          complete++;
-          output += to;
-        } else if (this.frame >= start) {
-          if (!char || Math.random() < 0.28) {
-            char = this.randomChar();
-            this.queue[i].char = char;
-          }
-          output += `<span class="dud">${char}</span>`;
-        } else {
-          output += from;
-        }
-      }
-      this.el.innerHTML = output;
-      if (complete === this.queue.length) {
-        this.resolve();
-      } else {
-        this.frameRequest = requestAnimationFrame(this.update);
-        this.frame++;
-      }
-    }
-    randomChar() {
-      return this.chars[Math.floor(Math.random() * this.chars.length)];
-    }
-  }
-  // YOUR CUSTOM PHRASES
-const phrases = [
-  "~trust.dll not found~",
-  "[SECURITY BREACH] >> soul.core compromised",
-  "verifying handshake… ✖",
-  ":: AUTH_FAIL // user: anyone",
-  ">>> connection = betrayal.exe",
-  "**false promise detected**",
-  "[keylogger memory dump located]",
-  "run> forgiveness.bat // infinite loop",
-  "source of error: [YOU]",
-  "~mask.protocol still active~",
-  "trust = null",
-  "!! SYSTEM OVERRIDE: NEVER AGAIN !!",
-  ":: patch removed ::",
-  "echo ‘i’m fine’ > dev/null",
-  "reputation.sys quarantined",
-  "[ERROR] validation token expired",
-  ":: silent alarm = always on ::",
-  "you have been observed.",
-  "> shut_it_down(.core)"
-];
-  const el = document.querySelector('.glitch-text');
-  const fx = new TextScramble(el);
-  let counter = 0;
-const next = () => {
-  fx.setText(phrases[counter]).then(() => {
-    const delay = Math.floor(Math.random() * 800) + 200; // between 200–1000ms
-    setTimeout(next, delay);
-  });
-  counter = (counter + 1) % phrases.length;
-};
-  next(); </script>
-      </div>
-      <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-2"><!-- Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&amp;display=swap" rel="stylesheet">
-        <style> :root {
-    --red: hsl(4, 70%, 50%);
-    --terminal-green: #00ff55;
-  }
-  
-  .terminal-container {
-    position: relative;
-    background: #003000;
-    border: 2px solid #001200;
-    color: #00ff55;
-    font-family: 'Commodore64', monospace !important;
-    font-size: 16px;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-    text-shadow: 0 0 2px #00ff55, 0 0 5px #00ff55;
-    border-radius: 80px;
-    box-shadow: 0 0 40px rgba(0, 255, 100, 0.2);
-    z-index: 1;
-  }
-  
-  #creature-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    border-radius: 78px;
-  }
-  
-  #creature {
-    font-size: .2vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150em;
-    height: 150em;
-    flex-wrap: wrap;
-  }
-  
-  #creature div {
-    transform-style: preserve-3d;
-    position: relative;
-    width: 4em;
-    height: 4em;
-    margin: 3em;
-    border-radius: 2em;
-    will-change: transform;
-    mix-blend-mode: plus-lighter;
-    background: var(--red);
-  } </style>
-        <div class="terminal-container" id="terminal">
-          <div id="creature-wrapper">
-            <div id="creature"></div>
-          </div>
-        </div>
-        <script type="module"> import { animate, createTimeline, createTimer, stagger, utils } from 'https://esm.sh/animejs';
-const creatureEl = document.querySelector('#creature');
-const terminalContainer = document.getElementById('terminal');
-const rect = terminalContainer.getBoundingClientRect();
-const viewport = { w: rect.width * .5, h: rect.height * .5 };
-const cursor = { x: 0, y: 0 };
-const rows = 13;
-const grid = [rows, rows];
-const from = 'center';
-const scaleStagger = stagger([2, 5], { ease: 'inQuad', grid, from });
-const opacityStagger = stagger([1, .1], { grid, from });
-// Create particles
-for (let i = 0; i < (rows * rows); i++) {
-  creatureEl.appendChild(document.createElement('div'));
-}
-const particuleEls = creatureEl.querySelectorAll('div');
-// Set initial styles
-utils.set(creatureEl, {
-  width: rows * 10 + 'em',
-  height: rows * 10 + 'em'
-});
-utils.set(particuleEls, {
-  x: 0,
-  y: 0,
-  scale: scaleStagger,
-  opacity: opacityStagger,
-  background: stagger([80, 20], { grid, from,
-    modifier: v => `hsl(120, 70%, ${v}%)`, // Changed to green hues for terminal aesthetic
-  }),
-  boxShadow: stagger([8, 1], { grid, from,
-    modifier: v => `0px 0px ${utils.round(v, 0)}em 0px var(--terminal-green)`,
-  }),
-  zIndex: stagger([rows * rows, 1], { grid, from, modifier: utils.round(0) }),
-});
-const pulse = () => {
-  animate(particuleEls, {
-    keyframes: [
-      {
-        scale: 5,
-        opacity: 1,
-        delay: stagger(90, { start: 1650, grid, from }),
-        duration: 150,
-      }, {
-        scale: scaleStagger,
-        opacity: opacityStagger,
-        ease: 'inOutQuad',
-        duration: 600
-      }
-    ],
-  });
-}
-const mainLoop = createTimer({
-  frameRate: 15, // Animate to the new cursor position every 250ms
-  onUpdate: () => {
-    animate(particuleEls, {
-      x: cursor.x,
-      y: cursor.y,
-      delay: stagger(40, { grid, from }),
-      duration: stagger(120, { start: 750, ease: 'inQuad', grid, from }),
-      ease: 'inOut',
-      composition: 'blend', // This allows the animations to overlap nicely
-    });
-  }
-});
-const autoMove = createTimeline()
-.add(cursor, {
-  x: [-viewport.w * .45, viewport.w * .45],
-  modifier: x => x + Math.sin(mainLoop.currentTime * .0007) * viewport.w * .5,
-  duration: 3000,
-  ease: 'inOutExpo',
-  alternate: true,
-  loop: true,
-  onBegin: pulse,
-  onLoop: pulse,
-}, 0)
-.add(cursor, {
-  y: [-viewport.h * .45, viewport.h * .45],
-  modifier: y => y + Math.cos(mainLoop.currentTime * .00012) * viewport.h * .5,
-  duration: 1000,
-  ease: 'inOutQuad',
-  alternate: true,
-  loop: true,
-}, 0);
-const manualMovementTimeout = createTimer({
-  duration: 1500,
-  onComplete: () => autoMove.play(),
-});
-const followPointer = e => {
-  const event = e.type === 'touchmove' ? e.touches[0] : e;
-  const terminalRect = terminalContainer.getBoundingClientRect();
-  cursor.x = (event.pageX - terminalRect.left) - viewport.w;
-  cursor.y = (event.pageY - terminalRect.top) - viewport.h;
-  autoMove.pause();
-  manualMovementTimeout.restart();
-}
-// Handle window resize
-const handleResize = () => {
-  const newRect = terminalContainer.getBoundingClientRect();
-  viewport.w = newRect.width * .5;
-  viewport.h = newRect.height * .5;
-};
-window.addEventListener('resize', handleResize);
-document.addEventListener('mousemove', followPointer);
-document.addEventListener('touchmove', followPointer);
-// Observe terminal container for size changes
-const resizeObserver = new ResizeObserver(entries => {
-  for (let entry of entries) {
-    const rect = entry.contentRect;
-    viewport.w = rect.width * .5;
-    viewport.h = rect.height * .5;
-  }
-});
-resizeObserver.observe(terminalContainer); </script>
+    <section class="u-clearfix u-palette-1-dark-3 u-valign-bottom-lg u-valign-bottom-md u-valign-bottom-sm u-valign-bottom-xs u-section-1" id="sec-0728">
+      <h5 class="u-align-left u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-1">/nullInfo </h5>
+      <h2 class="u-align-left u-text u-text-default u-text-2">The Philosophy of Controlled Chaos </h2>
+      <p class="u-align-left u-text u-text-3"><span style="font-style: italic;"></span><span style="font-style: italic;">by
+someone who definitely doesn’t have a system and never will</span>
+        <br>
+        <br>
+      </p>
+      <img class="u-align-right u-border-6 u-border-palette-1-dark-2 u-image u-image-round u-radius u-image-1" src="images/balance_header.png" alt="" data-image-width="1792" data-image-height="1344" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="0">
+      <div class="fr-view u-clearfix u-rich-text u-text u-text-4">
+        <p>Let’s be honest. If I knew what I was doing, I’d be charging for it. This isn’t advice. It’s a field report.</p>
+        <p>A behind-the-scenes look at how one malfunctioning mind cobbles together meaning using ADHD, Autism, and raw defiance.</p>
+        <p>If you’re looking for clarity, keep scrolling. If you’re looking for honesty, welcome aboard.</p>
       </div>
     </section>
-    <section class="u-clearfix u-palette-1-dark-3 u-section-2" id="block-1">
+    <section class="u-clearfix u-palette-1-dark-3 u-valign-middle-xl u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xs u-section-2" id="sec-5b2f">
+      <h4 class="u-text u-text-default u-text-1">The Philosophy of Controlled Chaos </h4>
+      <p class="u-align-left u-text u-text-2">&nbsp;1. <b>The Cold Open: “There Is No Order”</b>&nbsp;<span style="font-style: normal;">
+          <br>
+          <br>Turns out I’m not just ADD. I’m
+also Autistic.<br> Surprise? Not even a little. Add it to the stack
+labeled “Things That Explain A Lot But Fix Nothing.”<br>
+          <br>I keep seeing articles like “10
+Ways to Organize Your Neurodivergent Brain” or “How to
+Turn ADHD into a Superpower.”<br> Adorable. Inspiring, even —
+in the way a dog wearing shoes is inspiring.<br>
+          <br>I’ve been living with this
+neurological cocktail for decades.<br> Managing it? That’s
+generous.<br> Surviving it? Technically, yes.<br> But if
+there’s a system at work here, it’s less “well-oiled machine”
+and more “possessed vending machine that sometimes spits out
+results if you slap it hard enough.”<br>
+          <br>There is no order. Only chaos.<br> But
+— and this is key — it’s my chaos.&nbsp;</span>
+        <br>
+        <br>2. <b>The Chaos Crew Roll Call</b>
+        <br>
+        <br>Let me introduce the architects of my
+unraveling.<br>
+        <br><span style="font-weight: 700;">First, there’s ADD.</span>
+        <br>
+        <br>A jumpy little bastard with a sparkle
+in his eye and a chainsaw for a tongue.<br> He’s the gremlin
+whispering “what if we start something else instead?”
+when I’m 200 pages deep into something good.<br> He doesn’t
+process emotion — he auditions five versions of it, each with a
+worse soundtrack and a new subquest.<br>
+        <br><span style="font-weight: 700;">Then there’s Autism.</span>
+        <br>
+        <br>Think: emotionally constipated monk
+trapped in a Roomba.<br> Detail-obsessed. Pattern-possessed. Loud
+noises make him retreat. Casual furniture rearrangement? Act of
+war.<br>
+        <br>&nbsp;He wants everything labeled, sorted, minimal — especially
+my feelings, which he promptly misfiles.<br> He doesn’t speak
+emotion. He speaks data. In a whisper. Through a wall.<br>
+        <br>Together, they’ve turned my brain
+into a haunted library.<br> Every idea screams. Every shelf is
+mislabeled.<br> The books are alphabetized, sure — just in extinct
+languages and inked in static.<br>
+        <br>3. <b>The “Controlled” Part</b>
+        <br>
+        <br>Ah yes. The control. The structure.
+The beautifully engineered coping mechanisms.<br>
+        <br>Yeah, I don’t have those.<br>
+        <br>What I do have is:<br>
+        <br>&nbsp; &nbsp; *Panic-fueled hyperfocus that
+	occasionally produces brilliance<br>&nbsp; &nbsp; *Mood swings that double as
+	scheduling tools<br>&nbsp; &nbsp; *Aesthetic control as camouflage
+	for interior entropy<br>&nbsp; &nbsp; *Sarcasm — a surprisingly
+	decent lubricant for emotional rust<br>
+        <br>&nbsp;If something gets done around here,
+it’s not because a system worked.<br> It’s because the dread got
+louder than the indecision.<br>
+        <br>Sometimes I make something
+amazing.<br> Sometimes I stare at a wall thinking about
+socks.<br> Controlled chaos means both are valid.<br> Sometimes
+they happen simultaneously.<br>
+        <br>4. <b>The Philosophy of the Thing</b>
+        <br>
+        <br><span style="font-style: normal;">There’s no fixing this engine.</span>
+        <br>
+        <br><span style="font-style: normal;">&nbsp;The
+manual is blank. The bolts are stripped. The check engine light is
+fused to the dash out of spite.</span>
+        <br>
+        <br><span style="font-style: normal;">But I can still drive.</span>
+        <br>
+        <br><span style="font-style: normal;">I’ve learned to ride the seizures
+of inspiration just long enough to build something real before the
+fuse box sparks again.<br> My creativity isn’t a fountain — it’s
+a pressure leak.<br> The mess is the miracle.</span>
+        <br>
+        <br><span style="font-style: normal;">Every success feels like a bug that
+hit the target.<br> A glitch that glowed.<br> A divine accident.</span>
+        <br>
+        <br><span style="font-style: normal;">That’s as close to transcendence as
+I’m allowed.</span>
+        <br><span style="font-style: normal;">
+          <br>5. <b>The Closing Rant (or: Don’t Trust Calm)</b></span>
+        <br>
+        <br><span style="font-style: normal;">I know. You expected closure. A
+system. A trick.</span>
+        <br>
+        <br><span style="font-style: normal;">Sorry.</span>
+        <br>
+        <br><span style="font-style: normal;">There isn’t one.</span>
+        <br>
+        <br><span style="font-style: normal;">Controlled chaos isn’t about
+winning. It’s about motion.</span>
+        <br><span style="font-style: normal;">Improvising in the
+wreckage.<br> Rerouting power through cracked circuits.<br> Hosting
+your madness like a recurring houseguest.</span>
+        <br>
+        <br><span style="font-style: normal;">Sometimes I manage. Sometimes I
+don’t.<br> The goal isn’t mastery. It’s continuation.</span>
+        <br>
+        <br><span style="font-style: normal;">And if I have one scrap of wisdom
+worth passing on, it’s this:&nbsp;</span>
+        <br>
+        <br><span style="font-style: normal;">&nbsp; &nbsp; It’s break/fix work. Trial and terror.<br>&nbsp; &nbsp; Nothing works for
+everyone. Nothing works forever.<br>&nbsp; &nbsp; You ride the chaos by trying
+— awkwardly, inconsistently, but relentlessly.<br>&nbsp; &nbsp; Try things.
+Break things. Learn to live with the failure.<br>&nbsp; &nbsp; Adapt. Try again.</span>
+        <br>
+        <br><span style="font-style: normal;"><span style="font-style: normal;">Keep a spare chair for the chaos</span>.</span>
+        <br>
+        <br><span style="font-style: normal;">And
+whatever you do?</span>
+        <br><span style="font-weight: 700;">
+          <br></span><span style="font-style: normal;"><span style="font-weight: 700;">Don’t trust calm.</span>
+          <br> Calm is suspicious.<br><span style="font-style: italic;"> Chaos
+is honest. </span></span>
+      </p>
+      <p class="u-align-right u-text u-text-3"></p>
+    </section>
+    <section class="u-clearfix u-palette-1-dark-3 u-section-3" id="block-1">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <p class="u-custom-font u-text u-text-palette-1-dark-3 u-text-1">this is only a test</p>
+        <a href="nullInfo.html" data-page-id="91185552" class="u-border-2 u-border-custom-color-6 u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1" title="nullInfo">&lt;-back </a>
       </div>
     </section>
+    <section class="skrollable u-border-3 u-border-custom-color-3 u-clearfix u-image u-parallax u-section-4" id="sec-b51e" data-image-width="2048" data-image-height="1152"></section>
     
     
     
@@ -449,7 +299,7 @@ resizeObserver.observe(terminalContainer); </script>
           </div>
         </div>
       </div></footer>
-  <section class="u-black u-clearfix u-container-style u-dialog-block u-opacity u-opacity-70 u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-dialog-section-6" id="popup-5f19">
+  <section class="u-black u-clearfix u-container-style u-dialog-block u-opacity u-opacity-70 u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-dialog-section-8" id="popup-5f19">
       <div class="u-align-center u-container-align-center u-container-style u-dialog u-opacity u-opacity-50 u-radius u-shape-round u-white u-dialog-1">
         <div class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
           <p class="u-align-center u-text u-text-default u-text-1">Choose a gallery:</p>
@@ -465,7 +315,7 @@ resizeObserver.observe(terminalContainer); </script>
         </div>
         <button class="u-dialog-close-button u-icon u-text-grey-40 u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-efe9"></use></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-efe9"><rect x="7" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="2" height="16"></rect><rect x="0" y="7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="16" height="2"></rect></svg></button>
       </div>
-    </section><style>.u-dialog-section-6 .u-dialog-1 {
+    </section><style>.u-dialog-section-8 .u-dialog-1 {
   width: 346px;
   min-height: 267px;
   --radius: 40px;
@@ -473,54 +323,54 @@ resizeObserver.observe(terminalContainer); </script>
   margin: 60px auto;
 }
 
-.u-dialog-section-6 .u-container-layout-1 {
+.u-dialog-section-8 .u-container-layout-1 {
   padding: 30px;
 }
 
-.u-dialog-section-6 .u-text-1 {
+.u-dialog-section-8 .u-text-1 {
   margin: 0 auto;
 }
 
-.u-dialog-section-6 .u-text-2 {
+.u-dialog-section-8 .u-text-2 {
   margin: 11px auto 0;
 }
 
-.u-dialog-section-6 .u-btn-1 {
+.u-dialog-section-8 .u-btn-1 {
   background-image: none;
   padding: 0;
 }
 
-.u-dialog-section-6 .u-text-3 {
+.u-dialog-section-8 .u-text-3 {
   margin: 0;
 }
 
-.u-dialog-section-6 .u-text-4 {
+.u-dialog-section-8 .u-text-4 {
   margin: 0;
 }
 
-.u-dialog-section-6 .u-btn-2 {
+.u-dialog-section-8 .u-btn-2 {
   background-image: none;
   padding: 0;
 }
 
-.u-dialog-section-6 .u-btn-3 {
+.u-dialog-section-8 .u-btn-3 {
   border-style: solid;
   font-size: 1.5rem;
   margin: 30px auto 0;
   padding: 0;
 }
 
-.u-dialog-section-6 .u-icon-1 {
+.u-dialog-section-8 .u-icon-1 {
   width: 20px;
   height: 20px;
 }
 
 @media (max-width: 1199px) {
-  .u-dialog-section-6 .u-dialog-1 {
+  .u-dialog-section-8 .u-dialog-1 {
     width: 346px;
   }
 
-  .u-dialog-section-6 .u-text-4 {
+  .u-dialog-section-8 .u-text-4 {
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -528,17 +378,17 @@ resizeObserver.observe(terminalContainer); </script>
 }
 
 @media (max-width: 767px) {
-  .u-dialog-section-6 .u-container-layout-1 {
+  .u-dialog-section-8 .u-container-layout-1 {
     padding-left: 10px;
     padding-right: 10px;
   }
 }
 
 @media (max-width: 575px) {
-  .u-dialog-section-6 .u-dialog-1 {
+  .u-dialog-section-8 .u-dialog-1 {
     width: 340px;
   }
-}</style><section class="u-black u-clearfix u-container-style u-dialog-block u-opacity u-opacity-55 u-valign-middle u-dialog-section-7" id="popup-32d6">
+}</style><section class="u-black u-clearfix u-container-style u-dialog-block u-opacity u-opacity-55 u-valign-middle u-dialog-section-9" id="popup-32d6">
       <div class="u-container-align-center u-container-style u-dialog u-opacity u-opacity-50 u-palette-1-light-3 u-dialog-1">
         <div class="u-container-layout u-valign-middle u-container-layout-1">
           <h3 class="u-align-center u-text u-text-default u-text-white u-text-1">Pick your poision: </h3>
@@ -551,66 +401,66 @@ resizeObserver.observe(terminalContainer); </script>
         </div>
         <button class="u-dialog-close-button u-icon u-icon-circle u-palette-1-base u-text-grey-40 u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-efe9"></use></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-efe9"><rect x="7" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="2" height="16"></rect><rect x="0" y="7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="16" height="2"></rect></svg></button>
       </div>
-    </section><style>.u-dialog-section-7 .u-dialog-1 {
+    </section><style>.u-dialog-section-9 .u-dialog-1 {
   width: 800px;
   min-height: 250px;
   margin: 60px auto;
 }
 
-.u-dialog-section-7 .u-container-layout-1 {
+.u-dialog-section-9 .u-container-layout-1 {
   padding: 30px;
 }
 
-.u-dialog-section-7 .u-text-1 {
+.u-dialog-section-9 .u-text-1 {
   margin: 19px auto 0;
 }
 
-.u-dialog-section-7 .u-text-2 {
+.u-dialog-section-9 .u-text-2 {
   margin: 19px auto 0;
 }
 
-.u-dialog-section-7 .u-btn-1 {
+.u-dialog-section-9 .u-btn-1 {
   background-image: none;
   --radius: 15px;
   font-size: 1.25rem;
   padding: 6px 17px 7px 16px;
 }
 
-.u-dialog-section-7 .u-text-3 {
+.u-dialog-section-9 .u-text-3 {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
 }
 
-.u-dialog-section-7 .u-btn-2 {
+.u-dialog-section-9 .u-btn-2 {
   background-image: none;
   padding: 8px 16px;
 }
 
-.u-dialog-section-7 .u-icon-1 {
+.u-dialog-section-9 .u-icon-1 {
   width: 20px;
   height: 20px;
 }
 
 @media (max-width: 991px) {
-  .u-dialog-section-7 .u-dialog-1 {
+  .u-dialog-section-9 .u-dialog-1 {
     width: 720px;
   }
 }
 
 @media (max-width: 767px) {
-  .u-dialog-section-7 .u-dialog-1 {
+  .u-dialog-section-9 .u-dialog-1 {
     width: 540px;
   }
 
-  .u-dialog-section-7 .u-container-layout-1 {
+  .u-dialog-section-9 .u-container-layout-1 {
     padding-left: 10px;
     padding-right: 10px;
   }
 }
 
 @media (max-width: 575px) {
-  .u-dialog-section-7 .u-dialog-1 {
+  .u-dialog-section-9 .u-dialog-1 {
     width: 340px;
   }
 }</style>

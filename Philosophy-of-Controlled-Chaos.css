@@ -1,0 +1,220 @@
+ .u-section-1 {
+  padding-right: 50px;
+  padding-left: 50px;
+  min-height: 50vw;
+}
+
+.u-section-1 .u-text-1 {
+  margin: 47px auto 0 0;
+}
+
+.u-section-1 .u-text-2 {
+  text-shadow: 3px 3px 8px rgba(0,0,0,0.96);
+  margin: 20px auto 0 0;
+}
+
+.u-section-1 .u-text-3 {
+  margin: 7px 589px 0 0;
+}
+
+.u-section-1 .u-image-1 {
+  width: 570px;
+  height: 400px;
+  --animation-custom_in-translate_x: 300px;
+  --animation-custom_in-translate_y: 0px;
+  --animation-custom_in-opacity: 0;
+  --animation-custom_in-rotate: 0deg;
+  --animation-custom_in-scale: 1;
+  --radius: 40px;
+  margin: 20px 0 0 auto;
+}
+
+.u-section-1 .u-text-4 {
+  margin: -387px calc(((100% - 1140px) / 2)  + 577px) 60px calc(((100% - 1140px) / 2)  + 11px);
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-text-1 {
+    margin-top: 263px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: calc(((100% - 940px) / 2)  + 320px);
+  }
+
+  .u-section-1 .u-image-1 {
+    width: 470px;
+    height: 330px;
+    margin-top: -43px;
+  }
+
+  .u-section-1 .u-text-4 {
+    margin-top: -236px;
+    margin-right: calc(((100% - 940px) / 2)  + 377px);
+    margin-left: calc(((100% - 940px) / 2));
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-text-1 {
+    margin-top: 210px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: calc(((100% - 720px) / 2)  + 100px);
+  }
+
+  .u-section-1 .u-image-1 {
+    width: 360px;
+    height: 253px;
+  }
+
+  .u-section-1 .u-text-4 {
+    margin: -159px calc(((100% - 720px) / 2)  + 157px) -14px calc(((100% - 720px) / 2));
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-text-1 {
+    margin-top: 262px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: calc(((100% - 540px) / 2));
+  }
+
+  .u-section-1 .u-image-1 {
+    width: 270px;
+    height: 190px;
+    margin-top: -62px;
+  }
+
+  .u-section-1 .u-text-4 {
+    margin: -77px calc(((100% - 540px) / 2));
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-text-1 {
+    width: auto;
+    margin-top: 48px;
+    margin-right: 265px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: calc(((100% - 340px) / 2));
+  }
+
+  .u-section-1 .u-image-1 {
+    margin-top: 333px;
+  }
+
+  .u-section-1 .u-text-4 {
+    margin: -471px calc(((100% - 340px) / 2)) 60px;
+  }
+} .u-section-2 {
+  padding-right: 50px;
+  padding-left: 50px;
+  min-height: 0;
+}
+
+.u-section-2 .u-text-1 {
+  font-weight: 700;
+  margin: 0 auto 0 0;
+}
+
+.u-section-2 .u-text-2 {
+  margin: 21px 0 0;
+}
+
+.u-section-2 .u-text-3 {
+  margin: 9px 0 0;
+}
+
+@media (max-width: 1199px) {
+  .u-section-2 .u-text-2 {
+    font-style: normal;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-2 .u-text-1 {
+    margin-top: 60px;
+  }
+
+  .u-section-2 .u-text-3 {
+    margin-bottom: 60px;
+  }
+}.u-section-3 .u-sheet-1 {
+  min-height: 56px;
+}
+
+.u-section-3 .u-btn-1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 4px 4px 7px 0 rgba(0,0,0,0.7);
+  border-style: solid;
+  margin: 6px 1033px 6px 0;
+  padding: 10px 22px 10px 20px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-3 .u-btn-1 {
+    margin-right: 833px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-3 .u-btn-1 {
+    margin-right: 613px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-3 .u-btn-1 {
+    margin-right: 433px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-3 .u-btn-1 {
+    margin-right: 233px;
+  }
+} .u-section-4 {
+  background-repeat: no-repeat;
+  background-image: url("images/cray_cray.jpg");
+  min-height: 400px;
+  background-size: cover;
+}
+
+@media (max-width: 1199px) {
+   .u-section-4 {
+    background-position: 50% 50%;
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 991px) {
+   .u-section-4 {
+    min-height: 183px;
+  }
+}
+
+@media (max-width: 767px) {
+   .u-section-4 {
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 575px) {
+   .u-section-4 {
+    min-height: 50px;
+  }
+}@font-face {
+  font-family: 'Nowharehouse';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Nowharehouse.ttf);
+}
+/* page-custom-fonts */
