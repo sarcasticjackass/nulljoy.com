@@ -47,13 +47,14 @@ exports.handler = async (event) => {
 
     // Check for function calls
     if (lastMessage.content && lastMessage.content.length > 0) {
-      const toolCalls = lastMessage.tool_calls || [];
-      for (const call of toolCalls) {
-        if (call.function?.name === 'set_emotional_state') {
-          const args = JSON.parse(call.function.arguments);
-          mood = args.mood || null;
-        }
-      }
+		const toolCalls = lastMessage.tool_calls || [];
+		for (const call of toolCalls) {
+		if (call.function?.name === 'set_emotional_state') {
+			const args = JSON.parse(call.function.arguments);
+			mood = args.mood || null;
+		}
+		}
+
     }
 
     return {

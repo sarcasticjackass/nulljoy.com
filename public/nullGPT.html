@@ -405,6 +405,10 @@ async function sendMessage() {
     appendOutput('[CONNECTION FAILURE]: Abysmia ghosted you. Again.');
   }
 }
+if (data.mood) {
+  console.log("Mood change received:", data.mood);
+  updateMoodIndicator(data.mood);
+}
 function appendOutput(text) {
   output.innerHTML += `<br>${text}`;
   output.scrollTop = output.scrollHeight;
