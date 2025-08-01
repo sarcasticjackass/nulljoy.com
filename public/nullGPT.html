@@ -83,8 +83,8 @@ of function. Hints of feeling.</p></header>
         <div class="data-layout-selected u-align-center u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
           <div class="u-layout">
             <div class="u-layout-row">
-              <div class="u-container-align-right-xl u-container-style u-layout-cell u-size-12 u-layout-cell-1">
-                <div class="u-container-layout u-valign-top u-container-layout-1">
+              <div class="u-container-style u-layout-cell u-size-12 u-layout-cell-1">
+                <div class="u-container-layout u-valign-bottom-xl u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xs u-container-layout-1">
                   <div class="custom-expanded u-align-right u-clearfix u-custom-html u-custom-html-1">
                     <style> /* --- Fluid Shader Panels --- */
 .fluid-panel {
@@ -209,6 +209,28 @@ of function. Hints of feeling.</p></header>
       
       fragColor = vec4(finalColor, 1.0);
   }`;
+function updateMoodIndicator(mood) {
+  document.body.setAttribute('data-abysmia-mood', mood);
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  const colorMap = {
+    neutral: '#00ff90',
+    glitched: '#ff00ff',
+    angry: '#ff4444',
+    detached: '#8888ff',
+    mournful: '#888888'
+  };
+  const glow = colorMap[mood] || '#00ff90';
+  // Optional: apply CSS filter for extra flair
+  [leftPanel, rightPanel].forEach(panel => {
+    panel.style.borderColor = glow;
+    panel.style.boxShadow = `
+      0 0 20px ${glow}40,
+      inset 0 0 20px ${glow}20
+    `;
+    panel.style.filter = `drop-shadow(0 0 10px ${glow})`;
+  });
+}
   class WebGLHandler {
       vertexShaderSource = `#version 300 es
           precision mediump float;
@@ -352,36 +374,46 @@ of function. Hints of feeling.</p></header>
                         <button style="background:#002200; color:#00ff90; border:1px solid #00ff90; padding:0.25rem 1rem; font-family:inherit; cursor:pointer;" onclick="sendMessage()">Chat</button>
                       </div>
                     </div>
-                    <script> const input = document.getElementById('userInput');
-  const output = document.getElementById('output');
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') sendMessage();
-  });
-  async function sendMessage() {
-    const message = input.value.trim();
-    if (!message) return;
-    appendOutput(`>> ${message}`);
-    input.value = '';
-    try {
-      const res = await fetch('/.netlify/functions/abysmia', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message })
-      });
-      const data = await res.json();
-      if (data.reply) {
-        appendOutput(data.reply);
-      } else {
-        appendOutput(`[ERROR]: ${data.error || 'Abysmia refused to respond.'}`);
-      }
-    } catch (err) {
-      appendOutput('[CONNECTION FAILURE]: Abysmia ghosted you. Again.');
+                    <script> // ✅ Use this updated script in your nullGPT.html terminal block
+// Assumes you will place your Assistant ID and API Key in the Netlify function
+const input = document.getElementById('userInput');
+const output = document.getElementById('output');
+let thread_id = null; // Persist across messages
+input.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') sendMessage();
+});
+async function sendMessage() {
+  const message = input.value.trim();
+  if (!message) return;
+  appendOutput(`>> ${message}`);
+  input.value = '';
+  try {
+    const res = await fetch('/.netlify/functions/abysmia-v2', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, thread_id })
+    });
+    const data = await res.json();
+    if (data.thread_id) thread_id = data.thread_id;
+    if (data.mood) updateMoodIndicator(data.mood);
+    if (data.reply) {
+      appendOutput(data.reply);
+    } else {
+      appendOutput(`[ERROR]: ${data.error || 'Abysmia refused to respond.'}`);
     }
+  } catch (err) {
+    appendOutput('[CONNECTION FAILURE]: Abysmia ghosted you. Again.');
   }
-  function appendOutput(text) {
-    output.innerHTML += `<br>${text}`;
-    output.scrollTop = output.scrollHeight;
-  } </script>
+}
+function appendOutput(text) {
+  output.innerHTML += `<br>${text}`;
+  output.scrollTop = output.scrollHeight;
+}
+function updateMoodIndicator(mood) {
+  document.body.setAttribute('data-abysmia-mood', mood);
+  // Optional: change colors, borders, glow based on mood
+  // e.g., if (mood === 'glitched') document.body.style.backgroundColor = '#0f0f0f';
+} </script>
                   </div>
                 </div>
               </div>
@@ -511,6 +543,28 @@ of function. Hints of feeling.</p></header>
       
       fragColor = vec4(finalColor, 1.0);
   }`;
+function updateMoodIndicator(mood) {
+  document.body.setAttribute('data-abysmia-mood', mood);
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  const colorMap = {
+    neutral: '#00ff90',
+    glitched: '#ff00ff',
+    angry: '#ff4444',
+    detached: '#8888ff',
+    mournful: '#888888'
+  };
+  const glow = colorMap[mood] || '#00ff90';
+  // Optional: apply CSS filter for extra flair
+  [leftPanel, rightPanel].forEach(panel => {
+    panel.style.borderColor = glow;
+    panel.style.boxShadow = `
+      0 0 20px ${glow}40,
+      inset 0 0 20px ${glow}20
+    `;
+    panel.style.filter = `drop-shadow(0 0 10px ${glow})`;
+  });
+}
   class WebGLHandler {
       vertexShaderSource = `#version 300 es
           precision mediump float;
