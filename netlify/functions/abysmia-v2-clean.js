@@ -25,10 +25,11 @@ exports.handler = async (event) => {
 
  const run = await openai.beta.threads.runs.create(threadId, {
   assistant_id: ASSISTANT_ID,
-  tools: [
-    { type: "retrieval" },
-    { type: "function" }
-  ]
+   tools: [
+  { type: "file_search" },
+  { type: "function" }
+]
+
 });
 
 
