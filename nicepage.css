@@ -50071,7 +50071,8 @@ a.u-link.u-text-hover-color-var:hover {
   }
 
   .u-footer .u-layout-wrap-1 {
-    position: relative;
+    margin-top: 18px;
+    margin-bottom: 18px;
   }
 
   .u-footer .u-image-1 {
@@ -50090,6 +50091,10 @@ a.u-link.u-text-hover-color-var:hover {
 @media (max-width: 991px) {
    .u-footer {
     min-height: 53px;
+  }
+
+  .u-footer .u-layout-wrap-1 {
+    position: relative;
   }
 
   .u-footer .u-image-1 {

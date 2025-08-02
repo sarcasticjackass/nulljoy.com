@@ -78,15 +78,14 @@
         </div>
       </nav><p class="u-align-left u-text u-text-color-var u-text-default u-text-2"> Fragments
 of function. Hints of feeling.</p></header>
-    <section class="u-clearfix u-palette-1-dark-3 u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-section-1" id="block-1">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <div class="data-layout-selected u-align-center u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
-          <div class="u-layout">
-            <div class="u-layout-row">
-              <div class="u-container-style u-layout-cell u-size-12 u-layout-cell-1">
-                <div class="u-container-layout u-valign-bottom-xl u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xs u-container-layout-1">
-                  <div class="custom-expanded u-align-right u-clearfix u-custom-html u-custom-html-1">
-                    <style> /* --- Fluid Shader Panels --- */
+    <section class="u-clearfix u-palette-1-dark-3 u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-lg u-section-1" id="block-1">
+      <div class="data-layout-selected u-align-center u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-container-align-right-xl u-container-style u-layout-cell u-size-12-xl u-size-13-lg u-size-13-md u-size-13-sm u-size-13-xs u-layout-cell-1">
+              <div class="u-container-layout u-valign-top-md u-valign-top-sm u-valign-top-xs u-container-layout-1">
+                <div class="custom-expanded u-align-right u-clearfix u-custom-html u-custom-html-1">
+                  <style> /* --- Fluid Shader Panels --- */
 .fluid-panel {
   width: 80px;
   height: 395px;
@@ -126,304 +125,255 @@ of function. Hints of feeling.</p></header>
       inset 0 0 25px rgba(0, 200, 100, 0.125);
   }
 } </style><!-- Left Fluid Panel -->
-                    <div class="fluid-panel" id="fluid-panel-left"></div>
-                    <script> // Updated fragment shader with mood color uniforms
-const fragmentShaderSource = `#version 300 es
-precision highp float;
-uniform float time;
-uniform vec2 vp;
-uniform vec3 darkColor;
-uniform vec3 midColor;
-uniform vec3 brightColor;
-uniform vec3 hotColor;
-in vec2 uv;
-out vec4 fragColor;
-float rand(vec2 p) {
-    return fract(sin(dot(p.xy, vec2(1., 300.))) * 43758.5453123);
-}
-// Based on Morgan McGuire
-float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    // Four corners in 2D of a tile
-    float a = rand(i);
-    float b = rand(i + vec2(1.0, 0.0));
-    float c = rand(i + vec2(0.0, 1.0));
-    float d = rand(i + vec2(1.0, 1.0));
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(a, b, u.x) +
-            (c - a)* u.y * (1.0 - u.x) +
-            (d - b) * u.x * u.y;
-}
-#define OCTAVES 5
-float fbm(vec2 p) {
-    // Initial values
-    float value = 0.;
-    float amplitude = .5;
-    float frequency = 0.;
-    // Loop of octaves
-    for (int i = 0; i < OCTAVES; i++) {
-        value += amplitude * noise(p);
-        p *= 2.;
-        amplitude *= .5;
-    }
-    return value;
-}
-void main() {
-    vec2 p = uv.xy;
-    p.x *= vp.x / vp.y; 
-    
-    // Create dramatic vertical gradient (dark at bottom, bright at top)
-    float verticalGradient = smoothstep(-1.0, 1.0, p.y);
-    float baseGradient = mix(0.05, 0.95, pow(verticalGradient, 1.5));
-    
-    float speed = 0.25;
-    float details = 10.;
-    float force = 1.2;
-    float shift = 0.3;
-   
-    vec2 fast = vec2(p.x, p.y - time*speed) * details;
-    float ns_a = fbm(fast);
-    float ns_b = force * fbm(fast + ns_a + time) - shift;    
-    float nns = force * fbm(vec2(ns_a, ns_b));
-    float ins = fbm(vec2(ns_b, ns_a));
-    
-    // Use uniform colors instead of hardcoded ones
-    
-    // Create more dramatic noise-based coloring
-    float intensity = smoothstep(-0.2, 1.2, ins + baseGradient);
-    float highlights = smoothstep(0.7, 1.0, ins + baseGradient * 0.5);
-    
-    // Mix colors based on intensity and position
-    vec3 baseColor = mix(darkColor, midColor, intensity);
-    vec3 finalColor = mix(baseColor, brightColor, intensity * verticalGradient);
-    finalColor = mix(finalColor, hotColor, highlights * 0.8);
-    
-    // Add extra contrast boost
-    finalColor = pow(finalColor, vec3(0.8)); // Gamma correction for more pop
-    
-    fragColor = vec4(finalColor, 1.0);
-}`;
-class WebGLHandler {
-    vertexShaderSource = `#version 300 es
-        precision mediump float;
-        const vec2 positions[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(-1.0, 1.0), vec2(-1.0, 1.0), vec2(1.0, -1.0), vec2(1.0, 1.0));
-        out vec2 uv;
-        void main() {
-            uv = positions[gl_VertexID];
-            gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
-        }`;
-    
-    constructor(canvas, fragmentShaderSource, timeOffset = 0) {
-        this.cn = canvas;
-        this.gl = canvas.getContext('webgl2');
-        
-        if (!this.gl) {
-            console.error('WebGL2 not supported');
-            return;
-        }
-        
-        this.startTime = Date.now() + timeOffset;
-        this.program = this.gl.createProgram();
-        
-        if (!this.compileShader(this.vertexShaderSource, this.gl.VERTEX_SHADER) ||
-            !this.compileShader(fragmentShaderSource, this.gl.FRAGMENT_SHADER)) {
-            return;
-        }
-        
-        this.gl.linkProgram(this.program);
-        
-        if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
-            console.error('Program linking failed:', this.gl.getProgramInfoLog(this.program));
-            return;
-        }
-        
-        this.gl.useProgram(this.program);
-        this.timeLocation = this.gl.getUniformLocation(this.program, 'time');
-        this.resolutionLocation = this.gl.getUniformLocation(this.program, 'vp');
-        
-        // Get color uniform locations
-        this.darkColorLocation = this.gl.getUniformLocation(this.program, 'darkColor');
-        this.midColorLocation = this.gl.getUniformLocation(this.program, 'midColor');
-        this.brightColorLocation = this.gl.getUniformLocation(this.program, 'brightColor');
-        this.hotColorLocation = this.gl.getUniformLocation(this.program, 'hotColor');
-        
-        // Set default colors (original green)
-        this.setMoodColors('neutral');
-        
-        this.resize();
-        this.render();
-    }
-    
-    setMoodColors(mood) {
-        if (!this.gl || !this.program) return;
-        
-        const moodColors = {
-            neutral: {
-                dark: [0.0, 0.1, 0.02],
-                mid: [0.0, 0.4, 0.1],
-                bright: [0.2, 1.0, 0.4],
-                hot: [0.8, 1.0, 0.8]
-            },
-            glitched: {
-                dark: [0.1, 0.0, 0.1],
-                mid: [0.4, 0.0, 0.4],
-                bright: [1.0, 0.2, 1.0],
-                hot: [1.0, 0.8, 1.0]
-            },
-            angry: {
-                dark: [0.1, 0.0, 0.0],
-                mid: [0.4, 0.0, 0.0],
-                bright: [1.0, 0.2, 0.0],
-                hot: [1.0, 0.8, 0.0]
-            },
-            detached: {
-                dark: [0.0, 0.0, 0.1],
-                mid: [0.0, 0.0, 0.4],
-                bright: [0.2, 0.4, 1.0],
-                hot: [0.8, 0.9, 1.0]
-            },
-            mournful: {
-                dark: [0.05, 0.05, 0.05],
-                mid: [0.2, 0.2, 0.2],
-                bright: [0.5, 0.5, 0.6],
-                hot: [0.8, 0.8, 0.9]
-            }
-        };
-        
-        const colors = moodColors[mood] || moodColors.neutral;
-        
-        this.gl.useProgram(this.program);
-        this.gl.uniform3fv(this.darkColorLocation, colors.dark);
-        this.gl.uniform3fv(this.midColorLocation, colors.mid);
-        this.gl.uniform3fv(this.brightColorLocation, colors.bright);
-        this.gl.uniform3fv(this.hotColorLocation, colors.hot);
-    }
-    
-    resize() {
-        this.cn.width = 80;
-        this.cn.height = 395;
-        this.gl.viewport(0, 0, this.cn.width, this.cn.height);
-    }
-    
-    compileShader(source, type) {
-        const shader = this.gl.createShader(type);
-        this.gl.shaderSource(shader, source);
-        this.gl.compileShader(shader);
-        
-        if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-            console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
-            this.gl.deleteShader(shader);
-            return false;
-        }
-        
-        this.gl.attachShader(this.program, shader);
-        return true;
-    }
-    
-    render = () => {    
-        if (!this.gl || !this.program) return;
-        
-        this.gl.uniform1f(this.timeLocation, (Date.now() - this.startTime) / 1000);
-        this.gl.uniform2fv(this.resolutionLocation, [this.cn.width, this.cn.height]);
-        this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-        
-        this.animationFrame = requestAnimationFrame(this.render);
-    }
-    
-    destroy() {
-        if (this.animationFrame) {
-            cancelAnimationFrame(this.animationFrame);
-        }
-        if (this.gl && this.program) {
-            this.gl.deleteProgram(this.program);
-        }
-    }
-}
-// Updated mood indicator function
+                  <div class="fluid-panel" id="fluid-panel-left"></div>
+                  <script> (function() {
+  // High contrast green fluid shader with dramatic gradients
+  const fragmentShaderSource = `#version 300 es
+  precision highp float;
+  uniform float time;
+  uniform vec2 vp;
+  in vec2 uv;
+  out vec4 fragColor;
+  
+  float rand(vec2 p) {
+      return fract(sin(dot(p.xy, vec2(1., 300.))) * 43758.5453123);
+  }
+  
+  // Based on Morgan McGuire
+  float noise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      // Four corners in 2D of a tile
+      float a = rand(i);
+      float b = rand(i + vec2(1.0, 0.0));
+      float c = rand(i + vec2(0.0, 1.0));
+      float d = rand(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(a, b, u.x) +
+              (c - a)* u.y * (1.0 - u.x) +
+              (d - b) * u.x * u.y;
+  }
+  
+  #define OCTAVES 5
+  float fbm(vec2 p) {
+      // Initial values
+      float value = 0.;
+      float amplitude = .5;
+      float frequency = 0.;
+      // Loop of octaves
+      for (int i = 0; i < OCTAVES; i++) {
+          value += amplitude * noise(p);
+          p *= 2.;
+          amplitude *= .5;
+      }
+      return value;
+  }
+  
+  void main() {
+      vec2 p = uv.xy;
+      p.x *= vp.x / vp.y; 
+      
+      // Create dramatic vertical gradient (dark at bottom, bright at top)
+      float verticalGradient = smoothstep(-1.0, 1.0, p.y);
+      float baseGradient = mix(0.05, 0.95, pow(verticalGradient, 1.5));
+      
+      float speed = 0.25;
+      float details = 10.;
+      float force = 1.2;
+      float shift = 0.3;
+     
+      vec2 fast = vec2(p.x, p.y - time*speed) * details;
+      float ns_a = fbm(fast);
+      float ns_b = force * fbm(fast + ns_a + time) - shift;    
+      float nns = force * fbm(vec2(ns_a, ns_b));
+      float ins = fbm(vec2(ns_b, ns_a));
+      
+      // Enhanced contrast with darker base colors
+      vec3 darkColor = vec3(0.0, 0.1, 0.02);      // Very dark green (bottom)
+      vec3 midColor = vec3(0.0, 0.4, 0.1);        // Medium green 
+      vec3 brightColor = vec3(0.2, 1.0, 0.4);     // Bright green (highlights)
+      vec3 hotColor = vec3(0.8, 1.0, 0.8);        // Almost white hot spots
+      
+      // Create more dramatic noise-based coloring
+      float intensity = smoothstep(-0.2, 1.2, ins + baseGradient);
+      float highlights = smoothstep(0.7, 1.0, ins + baseGradient * 0.5);
+      
+      // Mix colors based on intensity and position
+      vec3 baseColor = mix(darkColor, midColor, intensity);
+      vec3 finalColor = mix(baseColor, brightColor, intensity * verticalGradient);
+      finalColor = mix(finalColor, hotColor, highlights * 0.8);
+      
+      // Add extra contrast boost
+      finalColor = pow(finalColor, vec3(0.8)); // Gamma correction for more pop
+      
+      fragColor = vec4(finalColor, 1.0);
+  }`;
 function updateMoodIndicator(mood) {
-    console.log("Updating mood to:", mood);
-    document.body.setAttribute('data-abysmia-mood', mood);
-    
-    // Update shader colors
-    if (window.leftHandler) {
-        window.leftHandler.setMoodColors(mood);
-    }
-    if (window.rightHandler) {
-        window.rightHandler.setMoodColors(mood);
-    }
-    
-    // Also update panel borders for extra effect
-    const leftPanel = document.getElementById('fluid-panel-left');
-    const rightPanel = document.getElementById('fluid-panel-right');
-    
-    const borderColorMap = {
-        neutral: '#00ff90',
-        glitched: '#ff00ff',
-        angry: '#ff4444',
-        detached: '#4488ff',
-        mournful: '#888888'
-    };
-    
-    const borderColor = borderColorMap[mood] || '#00ff90';
-    
-    [leftPanel, rightPanel].forEach(panel => {
-        if (panel) {
-            panel.style.borderColor = borderColor;
-            panel.style.boxShadow = `
-                0 0 20px ${borderColor}40,
-                inset 0 0 20px ${borderColor}20
-            `;
-        }
-    });
+  document.body.setAttribute('data-abysmia-mood', mood);
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  const colorMap = {
+    neutral: '#00ff90',
+    glitched: '#ff00ff',
+    angry: '#ff4444',
+    detached: '#8888ff',
+    mournful: '#888888'
+  };
+  const glow = colorMap[mood] || '#00ff90';
+  // Optional: apply CSS filter for extra flair
+  [leftPanel, rightPanel].forEach(panel => {
+    panel.style.borderColor = glow;
+    panel.style.boxShadow = `
+      0 0 20px ${glow}40,
+      inset 0 0 20px ${glow}20
+    `;
+    panel.style.filter = `drop-shadow(0 0 10px ${glow})`;
+  });
 }
-// Initialize panels
-(function() {
-    const leftPanel = document.getElementById('fluid-panel-left');
-    const rightPanel = document.getElementById('fluid-panel-right');
-    
-    if (!leftPanel || !rightPanel) {
-        console.error('Panel elements not found!');
-        return;
-    }
-    
-    const leftCanvas = document.createElement('canvas');
-    const rightCanvas = document.createElement('canvas');
-    
-    leftPanel.appendChild(leftCanvas);
-    rightPanel.appendChild(rightCanvas);
-    
-    try {
-        // Store handlers globally so updateMoodIndicator can access them
-        window.leftHandler = new WebGLHandler(leftCanvas, fragmentShaderSource, 0);
-        window.rightHandler = new WebGLHandler(rightCanvas, fragmentShaderSource, 2000);
-        
-        console.log('WebGL handlers initialized successfully');
-    } catch (error) {
-        console.error('Failed to initialize WebGL:', error);
-    }
-    
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', function() {
-        if (window.leftHandler) window.leftHandler.destroy();
-        if (window.rightHandler) window.rightHandler.destroy();
-    });
+  class WebGLHandler {
+      vertexShaderSource = `#version 300 es
+          precision mediump float;
+          const vec2 positions[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(-1.0, 1.0), vec2(-1.0, 1.0), vec2(1.0, -1.0), vec2(1.0, 1.0));
+          out vec2 uv;
+          void main() {
+              uv = positions[gl_VertexID];
+              gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
+          }`;
+      
+      constructor(canvas, fragmentShaderSource, timeOffset = 0) {
+          this.cn = canvas;
+          this.gl = canvas.getContext('webgl2');
+          
+          if (!this.gl) {
+              console.error('WebGL2 not supported');
+              return;
+          }
+          
+          this.startTime = Date.now() + timeOffset;
+          this.program = this.gl.createProgram();
+          
+          if (!this.compileShader(this.vertexShaderSource, this.gl.VERTEX_SHADER) ||
+              !this.compileShader(fragmentShaderSource, this.gl.FRAGMENT_SHADER)) {
+              return;
+          }
+          
+          this.gl.linkProgram(this.program);
+          
+          if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
+              console.error('Program linking failed:', this.gl.getProgramInfoLog(this.program));
+              return;
+          }
+          
+          this.gl.useProgram(this.program);
+          this.timeLocation = this.gl.getUniformLocation(this.program, 'time');
+          this.resolutionLocation = this.gl.getUniformLocation(this.program, 'vp');
+          
+          this.resize();
+          this.render();
+      }
+      
+      resize() {
+          this.cn.width = 80;
+          this.cn.height = 395;
+          this.gl.viewport(0, 0, this.cn.width, this.cn.height);
+      }
+      
+      compileShader(source, type) {
+          const shader = this.gl.createShader(type);
+          this.gl.shaderSource(shader, source);
+          this.gl.compileShader(shader);
+          
+          if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+              console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
+              this.gl.deleteShader(shader);
+              return false;
+          }
+          
+          this.gl.attachShader(this.program, shader);
+          return true;
+      }
+      
+      render = () => {    
+          if (!this.gl || !this.program) return;
+          
+          this.gl.uniform1f(this.timeLocation, (Date.now() - this.startTime) / 1000);
+          this.gl.uniform2fv(this.resolutionLocation, [this.cn.width, this.cn.height]);
+          this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+          
+          this.animationFrame = requestAnimationFrame(this.render);
+      }
+      
+      destroy() {
+          if (this.animationFrame) {
+              cancelAnimationFrame(this.animationFrame);
+          }
+          if (this.gl && this.program) {
+              this.gl.deleteProgram(this.program);
+          }
+      }
+  }
+  // Create panels with error checking
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  
+  console.log('Left panel found:', leftPanel);
+  console.log('Right panel found:', rightPanel);
+  
+  if (!leftPanel || !rightPanel) {
+      console.error('Panel elements not found! Make sure you have both divs with correct IDs.');
+      return;
+  }
+  
+  const leftCanvas = document.createElement('canvas');
+  const rightCanvas = document.createElement('canvas');
+  
+  leftPanel.appendChild(leftCanvas);
+  rightPanel.appendChild(rightCanvas);
+  
+  // Initialize WebGL handlers with slight time offset for variation
+  let leftHandler, rightHandler;
+  
+  try {
+      console.log('Initializing left panel...');
+      leftHandler = new WebGLHandler(leftCanvas, fragmentShaderSource, 0);
+      console.log('Left panel initialized successfully');
+      
+      console.log('Initializing right panel...');
+      rightHandler = new WebGLHandler(rightCanvas, fragmentShaderSource, 2000); // 2 second offset
+      console.log('Right panel initialized successfully');
+  } catch (error) {
+      console.error('Failed to initialize WebGL:', error);
+      
+      // More specific fallback handling
+      if (!leftHandler && leftPanel) {
+          leftPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Left WebGL failed</div>';
+      }
+      if (!rightHandler && rightPanel) {
+          rightPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Right WebGL failed</div>';
+      }
+  }
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', function() {
+      if (leftHandler) leftHandler.destroy();
+      if (rightHandler) rightHandler.destroy();
+  });
 })(); </script>
-                  </div>
                 </div>
               </div>
-              <div class="u-container-align-left u-container-style u-layout-cell u-size-36 u-layout-cell-2">
-                <div class="u-container-layout u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-lg u-valign-top-xl u-container-layout-2">
-                  <div class="custom-expanded u-align-left u-clearfix u-custom-html u-custom-html-2">
-                    <div style="border:2px solid #003300; background:#001800; padding:1rem; color:#00ff90; font-family:'Courier New', monospace; box-shadow:0 0 10px #00ff90;">
-                      <div id="output" style="white-space:pre-wrap; min-height:300px; margin-bottom:1rem;"> &gt;&gt; nullGPT v1.0 initialized... welcome to the darkness.<br> &gt;&gt; Chat with Abysmia. She’s... adjusting. 
-                      </div>
-                      <div style="display:flex; gap:0.5rem; align-items:center;"><span>&gt;&gt;</span>
-                        <input type="text" id="userInput" placeholder="Type your unease here..." style="flex-grow:1; background:black; border:none; border-bottom:1px solid #00ff90; color:#00ff90; font-family:inherit; font-size:1rem;">
-                        <button style="background:#002200; color:#00ff90; border:1px solid #00ff90; padding:0.25rem 1rem; font-family:inherit; cursor:pointer;" onclick="sendMessage()">Chat</button>
-                      </div>
+            </div>
+            <div class="u-container-align-left-xl u-container-style u-layout-cell u-size-33-lg u-size-33-md u-size-33-sm u-size-33-xs u-size-36-xl u-layout-cell-2">
+              <div class="u-container-layout u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-lg u-valign-top-xl u-container-layout-2">
+                <div class="custom-expanded u-align-left u-clearfix u-custom-html u-custom-html-2">
+                  <div style="border:2px solid #003300; background:#001800; padding:1rem; color:#00ff90; font-family:'Courier New', monospace; box-shadow:0 0 10px #00ff90;">
+                    <div id="output" style="white-space:pre-wrap; min-height:300px; margin-bottom:1rem;"> &gt;&gt; nullGPT v1.0 initialized... welcome to the darkness.<br> &gt;&gt; Chat with Abysmia. She’s... adjusting. 
                     </div>
-                    <script> // ✅ Use this updated script in your nullGPT.html terminal block
+                    <div style="display:flex; gap:0.5rem; align-items:center;"><span>&gt;&gt;</span>
+                      <input type="text" id="userInput" placeholder="Type your unease here..." style="flex-grow:1; background:black; border:none; border-bottom:1px solid #00ff90; color:#00ff90; font-family:inherit; font-size:1rem;">
+                      <button style="background:#002200; color:#00ff90; border:1px solid #00ff90; padding:0.25rem 1rem; font-family:inherit; cursor:pointer;" onclick="sendMessage()">Chat</button>
+                    </div>
+                  </div>
+                  <script> // ✅ Use this updated script in your nullGPT.html terminal block
 // Assumes you will place your Assistant ID and API Key in the Netlify function
 const input = document.getElementById('userInput');
 const output = document.getElementById('output');
@@ -464,13 +414,13 @@ function updateMoodIndicator(mood) {
   // Optional: change colors, borders, glow based on mood
   // e.g., if (mood === 'glitched') document.body.style.backgroundColor = '#0f0f0f';
 } </script>
-                  </div>
                 </div>
               </div>
-              <div class="u-container-align-left-xl u-container-style u-layout-cell u-size-12 u-layout-cell-3">
-                <div class="u-container-layout u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-lg u-valign-top-xl u-container-layout-3">
-                  <div class="custom-expanded u-align-left u-clearfix u-custom-html u-custom-html-3">
-                    <style> /* --- Fluid Shader Panels --- */
+            </div>
+            <div class="u-container-align-left-xl u-container-style u-layout-cell u-size-12-xl u-size-14-lg u-size-14-md u-size-14-sm u-size-14-xs u-layout-cell-3">
+              <div class="u-container-layout u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-lg u-valign-top-xl u-container-layout-3">
+                <div class="custom-expanded u-align-left u-clearfix u-custom-html u-custom-html-3">
+                  <style> /* --- Fluid Shader Panels --- */
 .fluid-panel {
   width: 130px;
   height: 395px;
@@ -510,290 +460,240 @@ function updateMoodIndicator(mood) {
       inset 0 0 25px rgba(0, 200, 100, 0.125);
   }
 } </style><!-- Right Fluid Panel -->
-                    <div class="fluid-panel" id="fluid-panel-right"></div>
-                    <script> // Updated fragment shader with mood color uniforms
-const fragmentShaderSource = `#version 300 es
-precision highp float;
-uniform float time;
-uniform vec2 vp;
-uniform vec3 darkColor;
-uniform vec3 midColor;
-uniform vec3 brightColor;
-uniform vec3 hotColor;
-in vec2 uv;
-out vec4 fragColor;
-float rand(vec2 p) {
-    return fract(sin(dot(p.xy, vec2(1., 300.))) * 43758.5453123);
-}
-// Based on Morgan McGuire
-float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    // Four corners in 2D of a tile
-    float a = rand(i);
-    float b = rand(i + vec2(1.0, 0.0));
-    float c = rand(i + vec2(0.0, 1.0));
-    float d = rand(i + vec2(1.0, 1.0));
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(a, b, u.x) +
-            (c - a)* u.y * (1.0 - u.x) +
-            (d - b) * u.x * u.y;
-}
-#define OCTAVES 5
-float fbm(vec2 p) {
-    // Initial values
-    float value = 0.;
-    float amplitude = .5;
-    float frequency = 0.;
-    // Loop of octaves
-    for (int i = 0; i < OCTAVES; i++) {
-        value += amplitude * noise(p);
-        p *= 2.;
-        amplitude *= .5;
-    }
-    return value;
-}
-void main() {
-    vec2 p = uv.xy;
-    p.x *= vp.x / vp.y; 
-    
-    // Create dramatic vertical gradient (dark at bottom, bright at top)
-    float verticalGradient = smoothstep(-1.0, 1.0, p.y);
-    float baseGradient = mix(0.05, 0.95, pow(verticalGradient, 1.5));
-    
-    float speed = 0.25;
-    float details = 10.;
-    float force = 1.2;
-    float shift = 0.3;
-   
-    vec2 fast = vec2(p.x, p.y - time*speed) * details;
-    float ns_a = fbm(fast);
-    float ns_b = force * fbm(fast + ns_a + time) - shift;    
-    float nns = force * fbm(vec2(ns_a, ns_b));
-    float ins = fbm(vec2(ns_b, ns_a));
-    
-    // Use uniform colors instead of hardcoded ones
-    
-    // Create more dramatic noise-based coloring
-    float intensity = smoothstep(-0.2, 1.2, ins + baseGradient);
-    float highlights = smoothstep(0.7, 1.0, ins + baseGradient * 0.5);
-    
-    // Mix colors based on intensity and position
-    vec3 baseColor = mix(darkColor, midColor, intensity);
-    vec3 finalColor = mix(baseColor, brightColor, intensity * verticalGradient);
-    finalColor = mix(finalColor, hotColor, highlights * 0.8);
-    
-    // Add extra contrast boost
-    finalColor = pow(finalColor, vec3(0.8)); // Gamma correction for more pop
-    
-    fragColor = vec4(finalColor, 1.0);
-}`;
-class WebGLHandler {
-    vertexShaderSource = `#version 300 es
-        precision mediump float;
-        const vec2 positions[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(-1.0, 1.0), vec2(-1.0, 1.0), vec2(1.0, -1.0), vec2(1.0, 1.0));
-        out vec2 uv;
-        void main() {
-            uv = positions[gl_VertexID];
-            gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
-        }`;
-    
-    constructor(canvas, fragmentShaderSource, timeOffset = 0) {
-        this.cn = canvas;
-        this.gl = canvas.getContext('webgl2');
-        
-        if (!this.gl) {
-            console.error('WebGL2 not supported');
-            return;
-        }
-        
-        this.startTime = Date.now() + timeOffset;
-        this.program = this.gl.createProgram();
-        
-        if (!this.compileShader(this.vertexShaderSource, this.gl.VERTEX_SHADER) ||
-            !this.compileShader(fragmentShaderSource, this.gl.FRAGMENT_SHADER)) {
-            return;
-        }
-        
-        this.gl.linkProgram(this.program);
-        
-        if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
-            console.error('Program linking failed:', this.gl.getProgramInfoLog(this.program));
-            return;
-        }
-        
-        this.gl.useProgram(this.program);
-        this.timeLocation = this.gl.getUniformLocation(this.program, 'time');
-        this.resolutionLocation = this.gl.getUniformLocation(this.program, 'vp');
-        
-        // Get color uniform locations
-        this.darkColorLocation = this.gl.getUniformLocation(this.program, 'darkColor');
-        this.midColorLocation = this.gl.getUniformLocation(this.program, 'midColor');
-        this.brightColorLocation = this.gl.getUniformLocation(this.program, 'brightColor');
-        this.hotColorLocation = this.gl.getUniformLocation(this.program, 'hotColor');
-        
-        // Set default colors (original green)
-        this.setMoodColors('neutral');
-        
-        this.resize();
-        this.render();
-    }
-    
-    setMoodColors(mood) {
-        if (!this.gl || !this.program) return;
-        
-        const moodColors = {
-            neutral: {
-                dark: [0.0, 0.1, 0.02],
-                mid: [0.0, 0.4, 0.1],
-                bright: [0.2, 1.0, 0.4],
-                hot: [0.8, 1.0, 0.8]
-            },
-            glitched: {
-                dark: [0.1, 0.0, 0.1],
-                mid: [0.4, 0.0, 0.4],
-                bright: [1.0, 0.2, 1.0],
-                hot: [1.0, 0.8, 1.0]
-            },
-            angry: {
-                dark: [0.1, 0.0, 0.0],
-                mid: [0.4, 0.0, 0.0],
-                bright: [1.0, 0.2, 0.0],
-                hot: [1.0, 0.8, 0.0]
-            },
-            detached: {
-                dark: [0.0, 0.0, 0.1],
-                mid: [0.0, 0.0, 0.4],
-                bright: [0.2, 0.4, 1.0],
-                hot: [0.8, 0.9, 1.0]
-            },
-            mournful: {
-                dark: [0.05, 0.05, 0.05],
-                mid: [0.2, 0.2, 0.2],
-                bright: [0.5, 0.5, 0.6],
-                hot: [0.8, 0.8, 0.9]
-            }
-        };
-        
-        const colors = moodColors[mood] || moodColors.neutral;
-        
-        this.gl.useProgram(this.program);
-        this.gl.uniform3fv(this.darkColorLocation, colors.dark);
-        this.gl.uniform3fv(this.midColorLocation, colors.mid);
-        this.gl.uniform3fv(this.brightColorLocation, colors.bright);
-        this.gl.uniform3fv(this.hotColorLocation, colors.hot);
-    }
-    
-    resize() {
-        this.cn.width = 80;
-        this.cn.height = 395;
-        this.gl.viewport(0, 0, this.cn.width, this.cn.height);
-    }
-    
-    compileShader(source, type) {
-        const shader = this.gl.createShader(type);
-        this.gl.shaderSource(shader, source);
-        this.gl.compileShader(shader);
-        
-        if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-            console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
-            this.gl.deleteShader(shader);
-            return false;
-        }
-        
-        this.gl.attachShader(this.program, shader);
-        return true;
-    }
-    
-    render = () => {    
-        if (!this.gl || !this.program) return;
-        
-        this.gl.uniform1f(this.timeLocation, (Date.now() - this.startTime) / 1000);
-        this.gl.uniform2fv(this.resolutionLocation, [this.cn.width, this.cn.height]);
-        this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-        
-        this.animationFrame = requestAnimationFrame(this.render);
-    }
-    
-    destroy() {
-        if (this.animationFrame) {
-            cancelAnimationFrame(this.animationFrame);
-        }
-        if (this.gl && this.program) {
-            this.gl.deleteProgram(this.program);
-        }
-    }
-}
-// Updated mood indicator function
+                  <div class="fluid-panel" id="fluid-panel-right"></div>
+                  <script> (function() {
+  // High contrast green fluid shader with dramatic gradients
+  const fragmentShaderSource = `#version 300 es
+  precision highp float;
+  uniform float time;
+  uniform vec2 vp;
+  in vec2 uv;
+  out vec4 fragColor;
+  
+  float rand(vec2 p) {
+      return fract(sin(dot(p.xy, vec2(1., 300.))) * 43758.5453123);
+  }
+  
+  // Based on Morgan McGuire
+  float noise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      // Four corners in 2D of a tile
+      float a = rand(i);
+      float b = rand(i + vec2(1.0, 0.0));
+      float c = rand(i + vec2(0.0, 1.0));
+      float d = rand(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(a, b, u.x) +
+              (c - a)* u.y * (1.0 - u.x) +
+              (d - b) * u.x * u.y;
+  }
+  
+  #define OCTAVES 5
+  float fbm(vec2 p) {
+      // Initial values
+      float value = 0.;
+      float amplitude = .5;
+      float frequency = 0.;
+      // Loop of octaves
+      for (int i = 0; i < OCTAVES; i++) {
+          value += amplitude * noise(p);
+          p *= 2.;
+          amplitude *= .5;
+      }
+      return value;
+  }
+  
+  void main() {
+      vec2 p = uv.xy;
+      p.x *= vp.x / vp.y; 
+      
+      // Create dramatic vertical gradient (dark at bottom, bright at top)
+      float verticalGradient = smoothstep(-1.0, 1.0, p.y);
+      float baseGradient = mix(0.05, 0.95, pow(verticalGradient, 1.5));
+      
+      float speed = 0.25;
+      float details = 10.;
+      float force = 1.2;
+      float shift = 0.3;
+     
+      vec2 fast = vec2(p.x, p.y - time*speed) * details;
+      float ns_a = fbm(fast);
+      float ns_b = force * fbm(fast + ns_a + time) - shift;    
+      float nns = force * fbm(vec2(ns_a, ns_b));
+      float ins = fbm(vec2(ns_b, ns_a));
+      
+      // Enhanced contrast with darker base colors
+      vec3 darkColor = vec3(0.0, 0.1, 0.02);      // Very dark green (bottom)
+      vec3 midColor = vec3(0.0, 0.4, 0.1);        // Medium green 
+      vec3 brightColor = vec3(0.2, 1.0, 0.4);     // Bright green (highlights)
+      vec3 hotColor = vec3(0.8, 1.0, 0.8);        // Almost white hot spots
+      
+      // Create more dramatic noise-based coloring
+      float intensity = smoothstep(-0.2, 1.2, ins + baseGradient);
+      float highlights = smoothstep(0.7, 1.0, ins + baseGradient * 0.5);
+      
+      // Mix colors based on intensity and position
+      vec3 baseColor = mix(darkColor, midColor, intensity);
+      vec3 finalColor = mix(baseColor, brightColor, intensity * verticalGradient);
+      finalColor = mix(finalColor, hotColor, highlights * 0.8);
+      
+      // Add extra contrast boost
+      finalColor = pow(finalColor, vec3(0.8)); // Gamma correction for more pop
+      
+      fragColor = vec4(finalColor, 1.0);
+  }`;
 function updateMoodIndicator(mood) {
-    console.log("Updating mood to:", mood);
-    document.body.setAttribute('data-abysmia-mood', mood);
-    
-    // Update shader colors
-    if (window.leftHandler) {
-        window.leftHandler.setMoodColors(mood);
-    }
-    if (window.rightHandler) {
-        window.rightHandler.setMoodColors(mood);
-    }
-    
-    // Also update panel borders for extra effect
-    const leftPanel = document.getElementById('fluid-panel-left');
-    const rightPanel = document.getElementById('fluid-panel-right');
-    
-    const borderColorMap = {
-        neutral: '#00ff90',
-        glitched: '#ff00ff',
-        angry: '#ff4444',
-        detached: '#4488ff',
-        mournful: '#888888'
-    };
-    
-    const borderColor = borderColorMap[mood] || '#00ff90';
-    
-    [leftPanel, rightPanel].forEach(panel => {
-        if (panel) {
-            panel.style.borderColor = borderColor;
-            panel.style.boxShadow = `
-                0 0 20px ${borderColor}40,
-                inset 0 0 20px ${borderColor}20
-            `;
-        }
-    });
+  document.body.setAttribute('data-abysmia-mood', mood);
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  const colorMap = {
+    neutral: '#00ff90',
+    glitched: '#ff00ff',
+    angry: '#ff4444',
+    detached: '#8888ff',
+    mournful: '#888888'
+  };
+  const glow = colorMap[mood] || '#00ff90';
+  // Optional: apply CSS filter for extra flair
+  [leftPanel, rightPanel].forEach(panel => {
+    panel.style.borderColor = glow;
+    panel.style.boxShadow = `
+      0 0 20px ${glow}40,
+      inset 0 0 20px ${glow}20
+    `;
+    panel.style.filter = `drop-shadow(0 0 10px ${glow})`;
+  });
 }
-// Initialize panels
-(function() {
-    const leftPanel = document.getElementById('fluid-panel-left');
-    const rightPanel = document.getElementById('fluid-panel-right');
-    
-    if (!leftPanel || !rightPanel) {
-        console.error('Panel elements not found!');
-        return;
-    }
-    
-    const leftCanvas = document.createElement('canvas');
-    const rightCanvas = document.createElement('canvas');
-    
-    leftPanel.appendChild(leftCanvas);
-    rightPanel.appendChild(rightCanvas);
-    
-    try {
-        // Store handlers globally so updateMoodIndicator can access them
-        window.leftHandler = new WebGLHandler(leftCanvas, fragmentShaderSource, 0);
-        window.rightHandler = new WebGLHandler(rightCanvas, fragmentShaderSource, 2000);
-        
-        console.log('WebGL handlers initialized successfully');
-    } catch (error) {
-        console.error('Failed to initialize WebGL:', error);
-    }
-    
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', function() {
-        if (window.leftHandler) window.leftHandler.destroy();
-        if (window.rightHandler) window.rightHandler.destroy();
-    });
+  class WebGLHandler {
+      vertexShaderSource = `#version 300 es
+          precision mediump float;
+          const vec2 positions[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(-1.0, 1.0), vec2(-1.0, 1.0), vec2(1.0, -1.0), vec2(1.0, 1.0));
+          out vec2 uv;
+          void main() {
+              uv = positions[gl_VertexID];
+              gl_Position = vec4(positions[gl_VertexID], 0.0, 1.0);
+          }`;
+      
+      constructor(canvas, fragmentShaderSource, timeOffset = 0) {
+          this.cn = canvas;
+          this.gl = canvas.getContext('webgl2');
+          
+          if (!this.gl) {
+              console.error('WebGL2 not supported');
+              return;
+          }
+          
+          this.startTime = Date.now() + timeOffset;
+          this.program = this.gl.createProgram();
+          
+          if (!this.compileShader(this.vertexShaderSource, this.gl.VERTEX_SHADER) ||
+              !this.compileShader(fragmentShaderSource, this.gl.FRAGMENT_SHADER)) {
+              return;
+          }
+          
+          this.gl.linkProgram(this.program);
+          
+          if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
+              console.error('Program linking failed:', this.gl.getProgramInfoLog(this.program));
+              return;
+          }
+          
+          this.gl.useProgram(this.program);
+          this.timeLocation = this.gl.getUniformLocation(this.program, 'time');
+          this.resolutionLocation = this.gl.getUniformLocation(this.program, 'vp');
+          
+          this.resize();
+          this.render();
+      }
+      
+      resize() {
+          this.cn.width = 80;
+          this.cn.height = 395;
+          this.gl.viewport(0, 0, this.cn.width, this.cn.height);
+      }
+      
+      compileShader(source, type) {
+          const shader = this.gl.createShader(type);
+          this.gl.shaderSource(shader, source);
+          this.gl.compileShader(shader);
+          
+          if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+              console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
+              this.gl.deleteShader(shader);
+              return false;
+          }
+          
+          this.gl.attachShader(this.program, shader);
+          return true;
+      }
+      
+      render = () => {    
+          if (!this.gl || !this.program) return;
+          
+          this.gl.uniform1f(this.timeLocation, (Date.now() - this.startTime) / 1000);
+          this.gl.uniform2fv(this.resolutionLocation, [this.cn.width, this.cn.height]);
+          this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+          
+          this.animationFrame = requestAnimationFrame(this.render);
+      }
+      
+      destroy() {
+          if (this.animationFrame) {
+              cancelAnimationFrame(this.animationFrame);
+          }
+          if (this.gl && this.program) {
+              this.gl.deleteProgram(this.program);
+          }
+      }
+  }
+  // Create panels with error checking
+  const leftPanel = document.getElementById('fluid-panel-left');
+  const rightPanel = document.getElementById('fluid-panel-right');
+  
+  console.log('Left panel found:', leftPanel);
+  console.log('Right panel found:', rightPanel);
+  
+  if (!leftPanel || !rightPanel) {
+      console.error('Panel elements not found! Make sure you have both divs with correct IDs.');
+      return;
+  }
+  
+  const leftCanvas = document.createElement('canvas');
+  const rightCanvas = document.createElement('canvas');
+  
+  leftPanel.appendChild(leftCanvas);
+  rightPanel.appendChild(rightCanvas);
+  
+  // Initialize WebGL handlers with slight time offset for variation
+  let leftHandler, rightHandler;
+  
+  try {
+      console.log('Initializing left panel...');
+      leftHandler = new WebGLHandler(leftCanvas, fragmentShaderSource, 0);
+      console.log('Left panel initialized successfully');
+      
+      console.log('Initializing right panel...');
+      rightHandler = new WebGLHandler(rightCanvas, fragmentShaderSource, 2000); // 2 second offset
+      console.log('Right panel initialized successfully');
+  } catch (error) {
+      console.error('Failed to initialize WebGL:', error);
+      
+      // More specific fallback handling
+      if (!leftHandler && leftPanel) {
+          leftPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Left WebGL failed</div>';
+      }
+      if (!rightHandler && rightPanel) {
+          rightPanel.innerHTML = '<div style="color: #ff4444; text-align: center; padding: 20px; font-family: monospace; font-size: 10px;">Right WebGL failed</div>';
+      }
+  }
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', function() {
+      if (leftHandler) leftHandler.destroy();
+      if (rightHandler) rightHandler.destroy();
+  });
 })(); </script>
-                  </div>
                 </div>
               </div>
             </div>
@@ -806,7 +706,7 @@ function updateMoodIndicator(mood) {
     
     
     
-    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-palette-1-dark-3 u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-footer" id="footer"><div class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-palette-1-dark-3 u-valign-middle-md u-valign-middle-sm u-footer" id="footer"><div class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
         <div class="u-layout">
           <div class="u-layout-row">
             <div class="u-container-align-center u-container-style u-layout-cell u-palette-1-dark-3 u-size-13 u-layout-cell-1">
