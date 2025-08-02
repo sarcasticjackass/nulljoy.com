@@ -11,61 +11,71 @@ console.log("🔧 OpenAI SDK loaded:", typeof openai === "object");
 exports.handler = async (event) => {
   try {
     const { message, thread_id } = JSON.parse(event.body);
+    
+    console.log("=== DEBUG START ===");
+    console.log("Received message:", message);
+    console.log("Received thread_id:", thread_id, "Type:", typeof thread_id);
 
     let threadId = thread_id;
-    if (!threadId) {
+    
+    // Handle null, undefined, empty string, etc.
+    if (!threadId || threadId === 'null' || threadId === 'undefined') {
+      console.log("Creating new thread...");
       const thread = await openai.beta.threads.create();
       threadId = thread.id;
+      console.log("New thread created:", threadId);
+    } else {
+      console.log("Using existing thread:", threadId);
     }
+
+    // Safety check
+    if (!threadId) {
+      throw new Error("ThreadId is still undefined after creation attempt");
+    }
+
+    console.log("Final threadId before message creation:", threadId);
 
     await openai.beta.threads.messages.create(threadId, {
       role: "user",
       content: message,
     });
 
- const run = await openai.beta.threads.runs.create(threadId, {
-  assistant_id: ASSISTANT_ID,
-tools: [
-  { type: "file_search" },
-  {
-    type: "function",
-    function: {
-      name: "set_emotional_state",
-      description: "Sets Abysmia’s current emotional tone",
-      parameters: {
-        type: "object",
-        properties: {
-          mood: {
-            type: "string",
-            enum: ["neutral", "glitched", "angry", "detached", "mournful"]
+    console.log("Message created successfully");
+
+    const run = await openai.beta.threads.runs.create(threadId, {
+      assistant_id: ASSISTANT_ID,
+      tools: [
+        { type: "file_search" },
+        { 
+          type: "function",
+          function: {
+            name: "set_emotional_state",
+            description: "Set or change the AI's emotional state/mood",
+            parameters: {
+              type: "object",
+              properties: {
+                mood: {
+                  type: "string",
+                  description: "The emotional state"
+                }
+              },
+              required: ["mood"]
+            }
           }
-        },
-        required: ["mood"]
-      }
-    }
-  },
-  {
-    type: "function",
-    function: {
-      name: "get_emotional_state",
-      description: "Returns the current simulated emotional state Abysmia is operating under.",
-      parameters: {
-        type: "object",
-        properties: {}
-      }
-    }
-  }
-]
+        }
+      ]
+    });
 
-});
-
+    console.log("Run created:", run.id, "ThreadId used:", threadId);
 
     // Wait for the run to finish
     let runStatus;
     do {
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Retrieving run status with threadId:", threadId, "runId:", run.id);
       runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
-    } while (runStatus.status !== "completed");
+      console.log("Run status:", runStatus.status);
+    } while (runStatus.status !== "completed" && runStatus.status !== "failed");
 
     // Get messages and look for assistant response
     const messages = await openai.beta.threads.messages.list(threadId);
