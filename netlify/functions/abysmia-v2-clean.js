@@ -73,7 +73,9 @@ exports.handler = async (event) => {
     do {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log("Retrieving run status with threadId:", threadId, "runId:", run.id);
-      runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
+ console.log("About to retrieve with threadId:", threadId, "runId:", run.id);
+console.log("Types - threadId:", typeof threadId, "runId:", typeof run.id);
+runStatus = await openai.beta.threads.runs.retrieve(String(threadId), String(run.id));
       console.log("Run status:", runStatus.status);
     } while (runStatus.status !== "completed" && runStatus.status !== "failed");
 
