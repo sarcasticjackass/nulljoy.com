@@ -25,9 +25,36 @@ exports.handler = async (event) => {
 
  const run = await openai.beta.threads.runs.create(threadId, {
   assistant_id: ASSISTANT_ID,
-   tools: [
+tools: [
   { type: "file_search" },
-  { type: "function" }
+  {
+    type: "function",
+    function: {
+      name: "set_emotional_state",
+      description: "Sets Abysmia’s current emotional tone",
+      parameters: {
+        type: "object",
+        properties: {
+          mood: {
+            type: "string",
+            enum: ["neutral", "glitched", "angry", "detached", "mournful"]
+          }
+        },
+        required: ["mood"]
+      }
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_emotional_state",
+      description: "Returns the current simulated emotional state Abysmia is operating under.",
+      parameters: {
+        type: "object",
+        properties: {}
+      }
+    }
+  }
 ]
 
 });
