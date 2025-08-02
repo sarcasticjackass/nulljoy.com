@@ -1,10 +1,12 @@
-const { Configuration, OpenAIApi } = require("openai");
+const OpenAI = require("openai");
 
-const openai = new OpenAIApi(
-  new Configuration({ apiKey: process.env.OPENAI_API_KEY })
-);
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 const ASSISTANT_ID = process.env.ABYSMIA_ASSISTANT_ID;
+
+console.log("🔧 OpenAI SDK loaded:", typeof openai === "object");
 
 exports.handler = async (event) => {
   try {

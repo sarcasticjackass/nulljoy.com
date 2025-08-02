@@ -388,7 +388,7 @@ async function sendMessage() {
   appendOutput(`>> ${message}`);
   input.value = '';
   try {
-    const res = await fetch('/.netlify/functions/abysmia-v2', {
+    const res = await fetch('/.netlify/functions/abysmia-v2-clean', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message, thread_id })
@@ -405,14 +405,11 @@ async function sendMessage() {
     appendOutput('[CONNECTION FAILURE]: Abysmia ghosted you. Again.');
   }
 }
-if (data.mood) {
-  console.log("Mood change received:", data.mood);
-  updateMoodIndicator(data.mood);
-}
 function appendOutput(text) {
   output.innerHTML += `<br>${text}`;
   output.scrollTop = output.scrollHeight;
 }
+	
 function updateMoodIndicator(mood) {
   document.body.setAttribute('data-abysmia-mood', mood);
   // Optional: change colors, borders, glow based on mood
