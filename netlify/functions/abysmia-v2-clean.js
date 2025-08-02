@@ -35,6 +35,26 @@ exports.handler = async (event) => {
 
     console.log("Final threadId before message creation:", threadId);
 
+    // Check for active runs first
+    console.log("Checking for active runs...");
+    const existingRuns = await openai.beta.threads.runs.list(threadId);
+    const activeRun = existingRuns.data.find(run => 
+      run.status === 'queued' || 
+      run.status === 'in_progress' || 
+      run.status === 'requires_action'
+    );
+    
+    if (activeRun) {
+      console.log("Found active run:", activeRun.id, "status:", activeRun.status);
+      return {
+        statusCode: 429, // Too Many Requests
+        body: JSON.stringify({ 
+          error: "Please wait, Abysmia is still processing your previous message...",
+          activeRunId: activeRun.id
+        }),
+      };
+    }
+
     await openai.beta.threads.messages.create(threadId, {
       role: "user",
       content: message,
@@ -75,9 +95,52 @@ exports.handler = async (event) => {
       console.log("Retrieving run status with threadId:", threadId, "runId:", run.id);
       
       try {
-        // Try alternative API call structure
         runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
         console.log("Run status:", runStatus.status);
+        
+        // Handle function calls
+        if (runStatus.status === "requires_action") {
+          console.log("Run requires action, checking for tool calls...");
+          const toolCalls = runStatus.required_action?.submit_tool_outputs?.tool_calls || [];
+          
+          if (toolCalls.length > 0) {
+            console.log("Found tool calls:", toolCalls.length);
+            const toolOutputs = [];
+            
+            for (const toolCall of toolCalls) {
+              console.log("Processing tool call:", toolCall.function.name);
+              
+              if (toolCall.function.name === "set_emotional_state") {
+                try {
+                  const args = JSON.parse(toolCall.function.arguments);
+                  const mood = args.mood || "neutral";
+                  console.log("Setting mood to:", mood);
+                  
+                  toolOutputs.push({
+                    tool_call_id: toolCall.id,
+                    output: JSON.stringify({ success: true, mood: mood })
+                  });
+                } catch (err) {
+                  console.error("Error parsing function args:", err);
+                  toolOutputs.push({
+                    tool_call_id: toolCall.id,
+                    output: JSON.stringify({ success: false, error: err.message })
+                  });
+                }
+              }
+            }
+            
+            // Submit the tool outputs
+            if (toolOutputs.length > 0) {
+              console.log("Submitting tool outputs:", toolOutputs);
+              await openai.beta.threads.runs.submitToolOutputs(threadId, run.id, {
+                tool_outputs: toolOutputs
+              });
+              console.log("Tool outputs submitted successfully");
+            }
+          }
+        }
+        
       } catch (retrieveError) {
         console.error("Retrieve error:", retrieveError.message);
         
