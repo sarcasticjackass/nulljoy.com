@@ -23,10 +23,14 @@ exports.handler = async (event) => {
       content: message,
     });
 
-    const run = await openai.beta.threads.runs.create(threadId, {
-      assistant_id: ASSISTANT_ID,
-      tools: ["retrieval", "function"],
-    });
+ const run = await openai.beta.threads.runs.create(threadId, {
+  assistant_id: ASSISTANT_ID,
+  tools: [
+    { type: "retrieval" },
+    { type: "function" }
+  ]
+});
+
 
     // Wait for the run to finish
     let runStatus;
