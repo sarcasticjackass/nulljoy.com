@@ -68,21 +68,29 @@ exports.handler = async (event) => {
 
     console.log("Run created:", run.id, "ThreadId used:", threadId);
 
-    // Wait for the run to finish
+    // Wait for the run to finish - using alternative approach
     let runStatus;
     do {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log("Retrieving run status with threadId:", threadId, "runId:", run.id);
-      console.log("Types - threadId:", typeof threadId, "runId:", typeof run.id);
-      console.log("ThreadId value check:", threadId, threadId === undefined, threadId === null);
       
-      // Try explicit string conversion
-      const safeThreadId = String(threadId);
-      const safeRunId = String(run.id);
-      console.log("Safe values - threadId:", safeThreadId, "runId:", safeRunId);
-      
-      runStatus = await openai.beta.threads.runs.retrieve(safeThreadId, safeRunId);
-      console.log("Run status:", runStatus.status);
+      try {
+        // Try alternative API call structure
+        runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
+        console.log("Run status:", runStatus.status);
+      } catch (retrieveError) {
+        console.error("Retrieve error:", retrieveError.message);
+        
+        // Fallback: try listing runs and finding ours
+        console.log("Trying fallback method...");
+        const runs = await openai.beta.threads.runs.list(threadId);
+        runStatus = runs.data.find(r => r.id === run.id);
+        
+        if (!runStatus) {
+          throw new Error("Could not find run in list");
+        }
+        console.log("Fallback run status:", runStatus.status);
+      }
     } while (runStatus.status !== "completed" && runStatus.status !== "failed");
 
     // Get messages and look for assistant response
