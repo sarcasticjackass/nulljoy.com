@@ -96,7 +96,7 @@
 } .u-section-2 {
   padding-right: 30px;
   padding-left: 30px;
-  min-height: 1159px;
+  min-height: 1077px;
 }
 
 .u-section-2 .u-text-1 {
@@ -192,7 +192,7 @@
 }
 
 .u-section-2 .u-text-2 {
-  margin: 40px 0 -8px;
+  margin: 40px 0 -1px;
 }
 
 @media (max-width: 1199px) {
@@ -252,6 +252,10 @@
 
   .u-section-2 .u-gallery-inner-1 {
     grid-template-columns: repeat(1, auto);
+  }
+
+  .u-section-2 .u-text-2 {
+    margin-bottom: 60px;
   }
 }
 
